@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import type { KeyboardEvent } from "react";
 import './Tratamentos.css'
 
 type Procedimento = {
