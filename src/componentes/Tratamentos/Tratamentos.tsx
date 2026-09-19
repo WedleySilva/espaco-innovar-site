@@ -1,5 +1,5 @@
-import React, { useRef, useState, useMemo } from "react";
-import type { KeyboardEvent } from "react";
+import React, { useRef, useState, useMemo } from "react"
+import type { KeyboardEvent } from "react"
 import './Tratamentos.css'
 
 type Procedimento = {
@@ -277,6 +277,7 @@ function Tratamentos() {
   const [carregandoIA, setCarregandoIA] = useState(false)
   const [erroIA, setErroIA] = useState('')
   const ROTACOES_ARRAS_THRESHOLD = 5
+
   const navegar = (direcao: 'esquerda' | 'direita') => {
     if (!faixaRef.current) return
     const distancia = faixaRef.current.clientWidth * 0.75
@@ -364,16 +365,23 @@ function Tratamentos() {
         }),
       })
 
-      const data = await res.json()
+      const text = await res.text()
+      let data
+      
+      try {
+        data = JSON.parse(text)
+      } catch (err) {
+        throw new Error('Desculpe, ocorreu uma instabilidade temporária. Por favor, tente novamente.')
+      }
 
       if (!res.ok) {
-        throw new Error(data.error || 'Erro ao processar sua pergunta.')
+        throw new Error(data.error || 'Não foi possível completar sua consulta no momento.')
       }
 
       setRespostaIA(data.resposta)
       setPerguntaIA('') 
     } catch (error: any) {
-      setErroIA(error.message || 'Falha na conexão. Tente novamente mais tarde.')
+      setErroIA(error.message || 'Falha na conexão. Verifique sua internet e tente novamente.')
     } finally {
       setCarregandoIA(false)
     }
@@ -482,6 +490,7 @@ function Tratamentos() {
               ))}
             </div>
           </div>
+          
           <div className="pesquisa-inov">
             <div className="pesquisa-inov__cabecalho">
               <span className="tratamentos__eyebrow">
@@ -495,7 +504,7 @@ function Tratamentos() {
               <input
                 type="text"
                 className="pesquisa-inov__input"
-                placeholder="Digite um procedimento, como 'botox', 'rugas' ou 'flacidez'..."
+                placeholder="Procure por algum procedimento aqui!"
                 value={termoBusca}
                 onChange={(e) => setTermoBusca(e.target.value)}
               />
@@ -530,11 +539,12 @@ function Tratamentos() {
               </div>
             )}
           </div>
+          
           <div className="ia-inov">
             <div className="ia-inov__cabecalho">
               <span className="tratamentos__eyebrow">
                 <i></i>
-                ASSISTENTE ESPAÇO INNOVAR
+                ASSISTENTE INTELIGENTE INNOVAR
               </span>
               <h3 className="ia-inov__titulo">Tire suas dúvidas sobre nossos procedimentos</h3>
             </div>
@@ -563,10 +573,11 @@ function Tratamentos() {
                   )}
                 </div>
               )}
+              
               <div className="ia-inov__input-group">
                 <textarea
                   className="ia-inov__textarea"
-                  placeholder="Ex: Quais os melhores tratamentos para flacidez? (Use Shift + Enter para quebrar linha)"
+                  placeholder="Pergunte ao Assistente Innovar"
                   value={perguntaIA}
                   onChange={(e) => setPerguntaIA(e.target.value)}
                   onKeyDown={handleIAKeyDown}
@@ -590,6 +601,7 @@ function Tratamentos() {
 
         </div>
       </section>
+
       {tratamentoSelecionado && (
         <div
           className="tratamentos__modal-overlay"

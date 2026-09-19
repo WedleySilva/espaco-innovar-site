@@ -430,6 +430,46 @@
   line-height: 1.8;
 }
 
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message-bubble {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    display: inline-block;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: white;
+}
+
+.ai-message {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: #333;
+}
+
 .tratamentos__procedimentos {
   display: flex;
   flex-direction: column;
@@ -632,14 +672,14 @@
   .tratamentos__procedimento p {
     font-size: 0.62rem;
   }
+  .message-bubble {
+        max-width: 95%;
+  }
 }
 
-/* ========================================================= */
-/* NOVAS FUNCIONALIDADES: PESQUISA NORMAL E ASSISTENTE IA    */
-/* ========================================================= */
 
 .pesquisa-inov {
-  margin-top: 50px;
+  margin: 50px auto 0;
   max-width: 800px;
   width: 100%;
 }
@@ -678,7 +718,7 @@
   padding: 16px 0;
   color: var(--teal-deep);
   font-family: 'Jost', sans-serif;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 300;
   outline: none;
 }
@@ -777,10 +817,8 @@
   opacity: 0.7;
 }
 
-/* --- ASSISTENTE IA --- */
-
 .ia-inov {
-  margin-top: 60px;
+  margin: 60px auto 0;
   max-width: 800px;
   width: 100%;
 }
@@ -853,6 +891,9 @@
   border-left: 3px solid var(--gold);
   box-shadow: 0 5px 15px -10px rgba(0,0,0,0.1);
   animation: tratamentosModal 0.4s ease both;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .ia-inov__avatar {
@@ -867,6 +908,8 @@
   font-weight: 300;
   margin: 0;
   white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .ia-inov__input-group {
@@ -883,7 +926,7 @@
   padding: 16px 20px;
   color: var(--teal-deep);
   font-family: 'Jost', sans-serif;
-  font-size: 1rem;
+  font-size: 14px;
   resize: none;
   min-height: 56px;
   max-height: 150px;
@@ -929,7 +972,6 @@
   color: rgba(44, 70, 73, 0.5);
 }
 
-/* Responsividade adicional para as novas áreas */
 @media (max-width: 600px) {
   .pesquisa-inov, .ia-inov {
     margin-top: 40px;
@@ -954,5 +996,11 @@
   }
   .ia-inov__mensagem {
     padding: 15px;
+  }
+  .pesquisa-inov__input {
+   font-size: 12px;
+  }
+  .ia-inov__textarea {
+    font-size: 12px;
   }
 }
