@@ -1,4 +1,5 @@
-import { useRef, useState, useMemo, KeyboardEvent } from 'react'
+import React, { useRef } from "react";
+import type { KeyboardEvent } from "react";
 import './Tratamentos.css'
 
 type Procedimento = {
@@ -257,7 +258,6 @@ const tratamentos: Tratamento[] = [
   },
 ]
 
-// Função utilitária para normalizar strings (ignorar acentos e caixa alta)
 const normalizarTexto = (texto: string) => {
   return texto
     .normalize('NFD')
@@ -266,25 +266,17 @@ const normalizarTexto = (texto: string) => {
 }
 
 function Tratamentos() {
-  // Estados originais
   const [tratamentoSelecionado, setTratamentoSelecionado] = useState<Tratamento | null>(null)
   const faixaRef = useRef<HTMLDivElement>(null)
   const arrastando = useRef(false)
   const inicioX = useRef(0)
   const scrollInicial = useRef(0)
-
-  // Novos Estados: Pesquisa Tradicional
   const [termoBusca, setTermoBusca] = useState('')
-
-  // Novos Estados: Assistente IA
   const [perguntaIA, setPerguntaIA] = useState('')
   const [respostaIA, setRespostaIA] = useState('')
   const [carregandoIA, setCarregandoIA] = useState(false)
   const [erroIA, setErroIA] = useState('')
-
   const ROTACOES_ARRAS_THRESHOLD = 5
-
-  // Lógica Original de Navegação
   const navegar = (direcao: 'esquerda' | 'direita') => {
     if (!faixaRef.current) return
     const distancia = faixaRef.current.clientWidth * 0.75
@@ -325,7 +317,6 @@ function Tratamentos() {
   const abrirTratamento = (tratamento: Tratamento) => {
     if (arrastando.current) return
     setTratamentoSelecionado(tratamento)
-    // Limpa a busca ao abrir um tratamento para não deixar a tela poluída
     setTermoBusca('')
   }
 
@@ -333,7 +324,6 @@ function Tratamentos() {
     setTratamentoSelecionado(null)
   }
 
-  // Lógica de Pesquisa Tradicional
   const resultadosPesquisa = useMemo(() => {
     if (!termoBusca.trim()) return []
 
@@ -355,7 +345,6 @@ function Tratamentos() {
     return resultados
   }, [termoBusca])
 
-  // Lógica do Assistente IA
   const enviarPerguntaIA = async () => {
     if (!perguntaIA.trim() || carregandoIA) return
 
@@ -364,7 +353,6 @@ function Tratamentos() {
     setRespostaIA('')
 
     try {
-      // Faz o POST para a Serverless Function na Vercel
       const res = await fetch('/api/gemini', {
         method: 'POST',
         headers: {
@@ -372,7 +360,7 @@ function Tratamentos() {
         },
         body: JSON.stringify({
           pergunta: perguntaIA,
-          baseDados: tratamentos, // Enviamos nossa base como contexto
+          baseDados: tratamentos, 
         }),
       })
 
@@ -383,7 +371,7 @@ function Tratamentos() {
       }
 
       setRespostaIA(data.resposta)
-      setPerguntaIA('') // Limpa o campo após o envio bem sucedido
+      setPerguntaIA('') 
     } catch (error: any) {
       setErroIA(error.message || 'Falha na conexão. Tente novamente mais tarde.')
     } finally {
@@ -393,7 +381,7 @@ function Tratamentos() {
 
   const handleIAKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault() // Evita a quebra de linha normal
+      e.preventDefault() 
       enviarPerguntaIA()
     }
   }
@@ -404,8 +392,6 @@ function Tratamentos() {
         <div className="tratamentos__fundo"></div>
 
         <div className="container tratamentos__container">
-          
-          {/* SEÇÃO 1: CARDS ORIGINAIS */}
           <div className="tratamentos__cabecalho">
             <div className="tratamentos__cabecalho-texto">
               <span className="tratamentos__eyebrow">
@@ -496,8 +482,6 @@ function Tratamentos() {
               ))}
             </div>
           </div>
-
-          {/* SEÇÃO 2: PESQUISA NORMAL (SEM IA) */}
           <div className="pesquisa-inov">
             <div className="pesquisa-inov__cabecalho">
               <span className="tratamentos__eyebrow">
@@ -546,8 +530,6 @@ function Tratamentos() {
               </div>
             )}
           </div>
-
-          {/* SEÇÃO 3: ASSISTENTE DE IA COM GEMINI */}
           <div className="ia-inov">
             <div className="ia-inov__cabecalho">
               <span className="tratamentos__eyebrow">
@@ -558,7 +540,6 @@ function Tratamentos() {
             </div>
 
             <div className="ia-inov__container">
-              {/* Área de Resposta / Chat */}
               {(respostaIA || carregandoIA || erroIA) && (
                 <div className="ia-inov__resposta-area">
                   {carregandoIA && (
@@ -582,8 +563,6 @@ function Tratamentos() {
                   )}
                 </div>
               )}
-
-              {/* Área de Input da IA */}
               <div className="ia-inov__input-group">
                 <textarea
                   className="ia-inov__textarea"
@@ -611,8 +590,6 @@ function Tratamentos() {
 
         </div>
       </section>
-
-      {/* MODAL ORIGINAL */}
       {tratamentoSelecionado && (
         <div
           className="tratamentos__modal-overlay"
