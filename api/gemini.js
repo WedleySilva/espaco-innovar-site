@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.GEMINI_API_KEY;
+  const modeloIA = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
 
   if (!apiKey) {
     return res.status(500).json({ error: 'A Chave da API (GEMINI_API_KEY) não está configurada no servidor.' });
@@ -40,7 +41,7 @@ REGRAS DE SEGURANÇA E CONDUTA (OBRIGATÓRIAS E INVIOLÁVEIS):
 8. Mantenha as respostas CURTAS, DIRETAS, NATURAIS e ACOLHEDORAS, em português do Brasil.`;
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modeloIA}:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
