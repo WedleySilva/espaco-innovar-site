@@ -1,0 +1,333 @@
+.experiencia {
+  position: relative;
+
+  min-height: 700px;
+
+  overflow: hidden;
+
+  padding: 95px 0 105px;
+}
+
+.experiencia__fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 253, 249, 0.91),
+      rgba(255, 253, 249, 0.94)
+    ),
+    url('https://res.cloudinary.com/drasiz1tf/image/upload/v1788715197/espa%C3%A7o-innovar/background/marmore-fundo.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.experiencia__fundo::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(212, 239, 238, 0.12),
+      transparent 48%
+    );
+}
+
+.experiencia__container {
+  position: relative;
+}
+
+.experiencia__cabecalho {
+  margin-bottom: 68px;
+}
+
+.experiencia__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 27px;
+
+  color: var(--teal);
+
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  line-height: 1;
+}
+
+.experiencia__eyebrow i {
+  display: block;
+
+  width: 36px;
+  height: 1px;
+
+  background: var(--teal);
+}
+
+.experiencia__titulo {
+  color: var(--teal-deep);
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.4rem, 4.5vw, 4.8rem);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+
+.experiencia__titulo em {
+  color: var(--gold);
+
+  font-style: italic;
+  font-weight: 300;
+}
+
+.experiencia__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 23px;
+}
+
+.experiencia__card {
+  position: relative;
+
+  min-height: 215px;
+
+  padding: 57px 36px 35px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border: 1px solid
+    rgba(190, 164, 105, 0.34);
+
+  border-radius: 1.7rem;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 20px 45px -32px
+    color-mix(
+      in oklab,
+      var(--teal-deep) 35%,
+      transparent
+    );
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background-color 0.35s ease;
+}
+
+.experiencia__card:hover {
+  transform: translateY(-5px);
+
+  border-color:
+    rgba(190, 164, 105, 0.55);
+
+  background: rgba(255, 255, 255, 0.96);
+
+  box-shadow:
+    0 25px 50px -30px
+    color-mix(
+      in oklab,
+      var(--teal-deep) 42%,
+      transparent
+    );
+}
+
+.experiencia__numero {
+  position: absolute;
+
+  top: 56px;
+  left: 36px;
+
+  color: var(--gold);
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  line-height: 1;
+}
+
+.experiencia__card-titulo {
+  margin-top: 43px;
+
+  color: var(--teal-deep);
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.experiencia__card-descricao {
+  max-width: 360px;
+
+  margin-top: 17px;
+
+  color: var(--text);
+
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+@media (max-width: 1200px) {
+  .experiencia {
+    padding: 85px 0 95px;
+  }
+
+  .experiencia__cabecalho {
+    margin-bottom: 55px;
+  }
+
+  .experiencia__titulo {
+    font-size: clamp(3.2rem, 4.4vw, 4.4rem);
+  }
+
+  .experiencia__grid {
+    gap: 20px;
+  }
+
+  .experiencia__card {
+    min-height: 205px;
+
+    padding: 52px 30px 30px;
+  }
+
+  .experiencia__numero {
+    top: 52px;
+    left: 30px;
+  }
+
+  .experiencia__card-titulo {
+    font-size: 1.5rem;
+  }
+
+  .experiencia__card-descricao {
+    font-size: 0.67rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .experiencia {
+    min-height: auto;
+
+    padding: 80px 0 90px;
+  }
+
+  .experiencia__container {
+    width: 85%;
+  }
+
+  .experiencia__cabecalho {
+    margin-bottom: 45px;
+  }
+
+  .experiencia__titulo {
+    font-size: clamp(3.1rem, 8vw, 4.4rem);
+  }
+
+  .experiencia__grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+  }
+
+  .experiencia__card {
+    min-height: 205px;
+
+    padding: 50px 27px 30px;
+  }
+
+  .experiencia__numero {
+    top: 50px;
+    left: 27px;
+  }
+
+  .experiencia__card-titulo {
+    margin-top: 41px;
+
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .experiencia {
+    padding: 65px 0 80px;
+  }
+
+  .experiencia__container {
+    width: 90%;
+  }
+
+  .experiencia__eyebrow {
+    gap: 10px;
+
+    margin-bottom: 19px;
+
+    font-size: 0.56rem;
+    letter-spacing: 0.23em;
+  }
+
+  .experiencia__eyebrow i {
+    width: 27px;
+  }
+
+  .experiencia__titulo {
+    font-size: clamp(2.75rem, 12vw, 3.7rem);
+    line-height: 1;
+  }
+
+  .experiencia__cabecalho {
+    margin-bottom: 32px;
+  }
+
+  .experiencia__grid {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+  .experiencia__card {
+    min-height: 175px;
+
+    padding: 43px 23px 27px;
+
+    border-radius: 1.35rem;
+  }
+
+  .experiencia__numero {
+    top: 43px;
+    left: 23px;
+
+    font-size: 0.7rem;
+  }
+
+  .experiencia__card-titulo {
+    margin-top: 37px;
+
+    font-size: 1.45rem;
+  }
+
+  .experiencia__card-descricao {
+    margin-top: 13px;
+
+    font-size: 0.67rem;
+    line-height: 1.65;
+  }
+}
