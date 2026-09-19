@@ -1,0 +1,683 @@
+import { useRef, useState, useMemo, KeyboardEvent } from 'react'
+import './Tratamentos.css'
+
+type Procedimento = {
+  nome: string
+  descricao: string
+}
+
+type Tratamento = {
+  categoria: string
+  titulo: string
+  descricao: string
+  imagem: string
+  procedimentos: Procedimento[]
+}
+
+const tratamentos: Tratamento[] = [
+  {
+    categoria: 'FACIAL',
+    titulo: 'Cuidados faciais',
+    descricao:
+      'Protocolos personalizados para rejuvenescimento, hidratação, harmonia e renovação da pele.',
+    imagem:
+      'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=85',
+    procedimentos: [
+      {
+        nome: 'Toxina botulínica (Botox)',
+        descricao:
+          'Suaviza rugas de expressão e pode ajudar a prevenir novas linhas, mantendo um aspecto natural.',
+      },
+      {
+        nome: 'Preenchimento labial',
+        descricao:
+          'Realça o contorno, proporciona volume e melhora a hidratação dos lábios.',
+      },
+      {
+        nome: 'Preenchimento facial',
+        descricao:
+          'Reposição de volume para harmonizar contornos e suavizar sulcos.',
+      },
+      {
+        nome: 'Skinbooster',
+        descricao:
+          'Hidratação profunda que contribui para melhorar viço, elasticidade e textura da pele.',
+      },
+      {
+        nome: 'Bioestimulador de colágeno',
+        descricao:
+          'Estimula a produção natural de colágeno, contribuindo para firmeza e rejuvenescimento.',
+      },
+      {
+        nome: 'Fios de PDO',
+        descricao:
+          'Procedimento que pode promover efeito lifting e estimular a produção de colágeno.',
+      },
+      {
+        nome: 'Microagulhamento com ativos',
+        descricao:
+          'Estimula a renovação da pele e potencializa a absorção de ativos.',
+      },
+      {
+        nome: 'Subcisão para acne',
+        descricao:
+          'Técnica utilizada para melhorar cicatrizes de acne por meio da liberação de fibroses.',
+      },
+      {
+        nome: 'Limpeza de pele Premium',
+        descricao:
+          'Higienização profunda com etapas completas para remover impurezas, controlar a oleosidade, hidratar e revitalizar a pele.',
+      },
+      {
+        nome: 'Limpeza de pele simples',
+        descricao:
+          'Remove impurezas, células mortas e cravos superficiais, deixando a pele limpa e saudável.',
+      },
+      {
+        nome: 'Peeling de diamante',
+        descricao:
+          'Esfoliação mecânica que auxilia na renovação da pele, textura e aparência de manchas.',
+      },
+      {
+        nome: 'Peeling químico',
+        descricao:
+          'Aplicação de ácidos específicos para promover renovação celular, conforme avaliação profissional.',
+      },
+    ],
+  },
+  {
+    categoria: 'CORPORAL',
+    titulo: 'Protocolos corporais',
+    descricao:
+      'Tratamentos voltados ao bem-estar, contorno corporal, circulação, celulite e cuidados com a pele.',
+    imagem:
+      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1000&q=85',
+    procedimentos: [
+      {
+        nome: 'Subcisão de celulites',
+        descricao:
+          'Técnica que libera travas de fibrose, contribuindo para reduzir o aspecto da celulite.',
+      },
+      {
+        nome: 'Tratamento para estrias',
+        descricao:
+          'Estimula a regeneração da pele, buscando melhorar a textura e a aparência das estrias.',
+      },
+      {
+        nome: 'Massagem terapêutica com ventosaterapia',
+        descricao:
+          'Técnica voltada ao alívio de dores musculares, redução de tensões e melhora da circulação.',
+      },
+      {
+        nome: 'Massagem relaxante',
+        descricao:
+          'Promove relaxamento profundo, redução do estresse e sensação de bem-estar.',
+      },
+      {
+        nome: 'Massagem modeladora com pantalas',
+        descricao:
+          'Auxilia na redução de medidas, melhora do contorno corporal e estimula a circulação.',
+      },
+      {
+        nome: 'Drenagem linfática',
+        descricao:
+          'Técnica que auxilia na redução do inchaço, eliminação de líquidos retidos e circulação linfática.',
+      },
+      {
+        nome: 'Manta térmica detox',
+        descricao:
+          'Favorece a transpiração e pode complementar protocolos voltados à redução de retenção de líquidos.',
+      },
+      {
+        nome: 'Protocolos para redução de medidas e emagrecimento',
+        descricao:
+          'Tratamentos personalizados que auxiliam na diminuição de medidas, gordura localizada e melhora do contorno corporal, associados a hábitos saudáveis.',
+      },
+    ],
+  },
+  {
+    categoria: 'SUPLEMENTAÇÕES',
+    titulo: 'Suplementações injetáveis',
+    descricao:
+      'Protocolos individualizados definidos conforme avaliação e objetivos de cada paciente.',
+    imagem:
+      'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85',
+    procedimentos: [
+      {
+        nome: 'Acelerador metabólico',
+        descricao:
+          'Protocolo de suporte voltado à otimização do metabolismo e disposição, conforme avaliação profissional.',
+      },
+      {
+        nome: 'Ganho de massa magra',
+        descricao:
+          'Protocolo de suporte para favorecer o desenvolvimento muscular, aliado à alimentação e exercícios.',
+      },
+      {
+        nome: 'Aumento da libido',
+        descricao:
+          'Protocolo voltado ao equilíbrio e bem-estar, podendo contribuir para melhora da libido.',
+      },
+      {
+        nome: 'Redução de celulite',
+        descricao:
+          'Protocolo voltado à melhora da circulação e da aparência da pele.',
+      },
+      {
+        nome: 'Auxílio no emagrecimento',
+        descricao:
+          'Protocolo que pode contribuir para o controle de peso quando associado a hábitos saudáveis.',
+      },
+      {
+        nome: "BCAA's",
+        descricao:
+          'Aminoácidos utilizados como suporte à recuperação muscular e ao desempenho físico.',
+      },
+      {
+        nome: 'Complexo B',
+        descricao:
+          'Suporte relacionado à produção de energia, disposição, metabolismo e funcionamento do sistema nervoso.',
+      },
+      {
+        nome: 'Zinco',
+        descricao:
+          'Nutriente relacionado à cicatrização, imunidade e manutenção da saúde.',
+      },
+      {
+        nome: 'Picolinato de cromo',
+        descricao:
+          'Ativo utilizado em protocolos individualizados relacionados ao metabolismo, sempre conforme avaliação profissional.',
+      },
+      {
+        nome: 'Procaína benzoica com cafeína',
+        descricao:
+          'Ativo utilizado em protocolos personalizados conforme objetivos e avaliação profissional.',
+      },
+      {
+        nome: 'Aminoácidos',
+        descricao:
+          'Podem contribuir para produção de colágeno, recuperação tecidual e manutenção da massa muscular.',
+      },
+      {
+        nome: 'Curcumina',
+        descricao:
+          'Possui ação antioxidante e anti-inflamatória, contribuindo para o bem-estar do organismo.',
+      },
+      {
+        nome: 'Ativos para flacidez',
+        descricao:
+          'Protocolos voltados ao estímulo de colágeno e elastina, buscando melhorar firmeza e qualidade da pele.',
+      },
+    ],
+  },
+  {
+    categoria: 'ESTÉTICA AVANÇADA',
+    titulo: 'Tecnologia e procedimentos',
+    descricao:
+      'Tecnologias e procedimentos especializados para complementar protocolos de cuidado e estética.',
+    imagem:
+      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85',
+    procedimentos: [
+      {
+        nome: 'Remoção de verrugas com jato de plasma',
+        descricao:
+          'Procedimento minimamente invasivo que utiliza jato de plasma. A lesão deve ser avaliada previamente para confirmar sua compatibilidade com o procedimento.',
+      },
+      {
+        nome: 'PEIM — Aplicação de Microvasos',
+        descricao:
+          'Procedimento destinado ao tratamento de microvasos aparentes por meio da aplicação de solução específica.',
+      },
+      {
+        nome: 'Depilação a laser de diodo',
+        descricao:
+          'Tecnologia que atua diretamente no folículo do pelo, promovendo redução progressiva dos pelos.',
+      },
+      {
+        nome: 'Radiofrequência',
+        descricao:
+          'Tecnologia utilizada em protocolos estéticos personalizados conforme avaliação profissional.',
+      },
+      {
+        nome: 'Ultrassom',
+        descricao:
+          'Tecnologia que pode ser integrada a protocolos corporais e estéticos personalizados.',
+      },
+      {
+        nome: 'Laser',
+        descricao:
+          'Tecnologia aplicada em protocolos específicos conforme indicação e avaliação profissional.',
+      },
+      {
+        nome: 'Criofrequência',
+        descricao:
+          'Tecnologia utilizada em protocolos estéticos personalizados para diferentes objetivos corporais e faciais.',
+      },
+    ],
+  },
+]
+
+// Função utilitária para normalizar strings (ignorar acentos e caixa alta)
+const normalizarTexto = (texto: string) => {
+  return texto
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+}
+
+function Tratamentos() {
+  // Estados originais
+  const [tratamentoSelecionado, setTratamentoSelecionado] = useState<Tratamento | null>(null)
+  const faixaRef = useRef<HTMLDivElement>(null)
+  const arrastando = useRef(false)
+  const inicioX = useRef(0)
+  const scrollInicial = useRef(0)
+
+  // Novos Estados: Pesquisa Tradicional
+  const [termoBusca, setTermoBusca] = useState('')
+
+  // Novos Estados: Assistente IA
+  const [perguntaIA, setPerguntaIA] = useState('')
+  const [respostaIA, setRespostaIA] = useState('')
+  const [carregandoIA, setCarregandoIA] = useState(false)
+  const [erroIA, setErroIA] = useState('')
+
+  const ROTACOES_ARRAS_THRESHOLD = 5
+
+  // Lógica Original de Navegação
+  const navegar = (direcao: 'esquerda' | 'direita') => {
+    if (!faixaRef.current) return
+    const distancia = faixaRef.current.clientWidth * 0.75
+    faixaRef.current.scrollBy({
+      left: direcao === 'direita' ? distancia : -distancia,
+      behavior: 'smooth',
+    })
+  }
+
+  const iniciarArraste = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!faixaRef.current) return
+    arrastando.current = false
+    inicioX.current = event.clientX
+    scrollInicial.current = faixaRef.current.scrollLeft
+  }
+
+  const moverArraste = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!faixaRef.current || event.buttons !== 1) return
+    const deltaX = event.clientX - inicioX.current
+
+    if (Math.abs(deltaX) > ROTACOES_ARRAS_THRESHOLD) {
+      if (!arrastando.current) {
+        arrastando.current = true
+        faixaRef.current.classList.add('tratamentos__faixa--arrastando')
+      }
+      faixaRef.current.scrollLeft = scrollInicial.current - deltaX
+    }
+  }
+
+  const finalizarArraste = () => {
+    if (!faixaRef.current) return
+    faixaRef.current.classList.remove('tratamentos__faixa--arrastando')
+    setTimeout(() => {
+      arrastando.current = false
+    }, 50)
+  }
+
+  const abrirTratamento = (tratamento: Tratamento) => {
+    if (arrastando.current) return
+    setTratamentoSelecionado(tratamento)
+    // Limpa a busca ao abrir um tratamento para não deixar a tela poluída
+    setTermoBusca('')
+  }
+
+  const fecharTratamento = () => {
+    setTratamentoSelecionado(null)
+  }
+
+  // Lógica de Pesquisa Tradicional
+  const resultadosPesquisa = useMemo(() => {
+    if (!termoBusca.trim()) return []
+
+    const termo = normalizarTexto(termoBusca)
+    const resultados: { procedimento: Procedimento; categoria: Tratamento }[] = []
+
+    tratamentos.forEach((cat) => {
+      cat.procedimentos.forEach((proc) => {
+        const nomeMatch = normalizarTexto(proc.nome).includes(termo)
+        const descMatch = normalizarTexto(proc.descricao).includes(termo)
+        const catMatch = normalizarTexto(cat.categoria).includes(termo)
+
+        if (nomeMatch || descMatch || catMatch) {
+          resultados.push({ procedimento: proc, categoria: cat })
+        }
+      })
+    })
+
+    return resultados
+  }, [termoBusca])
+
+  // Lógica do Assistente IA
+  const enviarPerguntaIA = async () => {
+    if (!perguntaIA.trim() || carregandoIA) return
+
+    setCarregandoIA(true)
+    setErroIA('')
+    setRespostaIA('')
+
+    try {
+      // Faz o POST para a Serverless Function na Vercel
+      const res = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pergunta: perguntaIA,
+          baseDados: tratamentos, // Enviamos nossa base como contexto
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Erro ao processar sua pergunta.')
+      }
+
+      setRespostaIA(data.resposta)
+      setPerguntaIA('') // Limpa o campo após o envio bem sucedido
+    } catch (error: any) {
+      setErroIA(error.message || 'Falha na conexão. Tente novamente mais tarde.')
+    } finally {
+      setCarregandoIA(false)
+    }
+  }
+
+  const handleIAKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault() // Evita a quebra de linha normal
+      enviarPerguntaIA()
+    }
+  }
+
+  return (
+    <>
+      <section id="tratamentos" className="tratamentos">
+        <div className="tratamentos__fundo"></div>
+
+        <div className="container tratamentos__container">
+          
+          {/* SEÇÃO 1: CARDS ORIGINAIS */}
+          <div className="tratamentos__cabecalho">
+            <div className="tratamentos__cabecalho-texto">
+              <span className="tratamentos__eyebrow">
+                <i></i>
+                NOSSOS TRATAMENTOS
+              </span>
+
+              <h2 className="tratamentos__titulo">
+                Protocolos pensados para <em>cada pele</em>
+              </h2>
+
+              <p className="tratamentos__descricao">
+                Da estética facial à massoterapia, cada tratamento começa com
+                uma avaliação criteriosa para desenhar o caminho ideal até o seu
+                resultado.
+              </p>
+            </div>
+
+            <div className="tratamentos__navegacao">
+              <button
+                type="button"
+                className="tratamentos__nav-btn"
+                onClick={() => navegar('esquerda')}
+                aria-label="Anterior"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                className="tratamentos__nav-btn"
+                onClick={() => navegar('direita')}
+                aria-label="Próximo"
+              >
+                →
+              </button>
+            </div>
+          </div>
+
+          <div className="tratamentos__area">
+            <div
+              ref={faixaRef}
+              className="tratamentos__faixa"
+              onPointerDown={iniciarArraste}
+              onPointerMove={moverArraste}
+              onPointerUp={finalizarArraste}
+              onPointerLeave={finalizarArraste}
+            >
+              {tratamentos.map((tratamento) => (
+                <article
+                  key={tratamento.categoria}
+                  className="tratamentos__card"
+                  onClick={() => abrirTratamento(tratamento)}
+                >
+                  <div className="tratamentos__imagem-wrapper">
+                    <img
+                      src={tratamento.imagem}
+                      alt={tratamento.titulo}
+                      className="tratamentos__imagem"
+                      draggable="false"
+                    />
+                    <div className="tratamentos__imagem-overlay"></div>
+                    <span className="tratamentos__categoria">
+                      {tratamento.categoria}
+                    </span>
+                  </div>
+
+                  <div className="tratamentos__card-conteudo">
+                    <h3>{tratamento.titulo}</h3>
+                    <div className="tratamentos__card-linha"></div>
+                    <p
+                      onPointerDown={(event) => event.stopPropagation()}
+                      onMouseDown={(event) => event.stopPropagation()}
+                      onTouchStart={(event) => event.stopPropagation()}
+                    >
+                      {tratamento.descricao}
+                    </p>
+                    <div className="tratamentos__card-final">
+                      <span>
+                        {tratamento.procedimentos.length} procedimentos
+                      </span>
+                      <span className="tratamentos__ver">
+                        VER TODOS
+                        <b>→</b>
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          {/* SEÇÃO 2: PESQUISA NORMAL (SEM IA) */}
+          <div className="pesquisa-inov">
+            <div className="pesquisa-inov__cabecalho">
+              <span className="tratamentos__eyebrow">
+                <i></i>
+                ENCONTRE UM PROCEDIMENTO
+              </span>
+            </div>
+            
+            <div className="pesquisa-inov__input-wrapper">
+              <span className="pesquisa-inov__icone">🔎</span>
+              <input
+                type="text"
+                className="pesquisa-inov__input"
+                placeholder="Digite um procedimento, como 'botox', 'rugas' ou 'flacidez'..."
+                value={termoBusca}
+                onChange={(e) => setTermoBusca(e.target.value)}
+              />
+            </div>
+
+            {termoBusca.trim() !== '' && (
+              <div className="pesquisa-inov__resultados">
+                {resultadosPesquisa.length > 0 ? (
+                  <ul className="pesquisa-inov__lista">
+                    {resultadosPesquisa.map((resultado, idx) => (
+                      <li
+                        key={idx}
+                        className="pesquisa-inov__item"
+                        onClick={() => abrirTratamento(resultado.categoria)}
+                      >
+                        <div className="pesquisa-inov__item-conteudo">
+                          <h4>{resultado.procedimento.nome}</h4>
+                          <span className="pesquisa-inov__tag-categoria">
+                            {resultado.categoria.categoria}
+                          </span>
+                        </div>
+                        <p>{resultado.procedimento.descricao}</p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="pesquisa-inov__vazio">
+                    <p>Não encontramos esse procedimento em nossa lista base.</p>
+                    <span>Tente utilizar termos diferentes ou pergunte para nossa Assistente abaixo.</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* SEÇÃO 3: ASSISTENTE DE IA COM GEMINI */}
+          <div className="ia-inov">
+            <div className="ia-inov__cabecalho">
+              <span className="tratamentos__eyebrow">
+                <i></i>
+                ASSISTENTE ESPAÇO INNOVAR
+              </span>
+              <h3 className="ia-inov__titulo">Tire suas dúvidas sobre nossos procedimentos</h3>
+            </div>
+
+            <div className="ia-inov__container">
+              {/* Área de Resposta / Chat */}
+              {(respostaIA || carregandoIA || erroIA) && (
+                <div className="ia-inov__resposta-area">
+                  {carregandoIA && (
+                    <div className="ia-inov__carregando">
+                      <div className="ia-inov__spinner"></div>
+                      Consultando especialistas virtuais...
+                    </div>
+                  )}
+                  
+                  {erroIA && (
+                    <div className="ia-inov__erro">
+                      ⚠️ {erroIA}
+                    </div>
+                  )}
+
+                  {respostaIA && (
+                    <div className="ia-inov__mensagem">
+                      <span className="ia-inov__avatar">✨</span>
+                      <p>{respostaIA}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Área de Input da IA */}
+              <div className="ia-inov__input-group">
+                <textarea
+                  className="ia-inov__textarea"
+                  placeholder="Ex: Quais os melhores tratamentos para flacidez? (Use Shift + Enter para quebrar linha)"
+                  value={perguntaIA}
+                  onChange={(e) => setPerguntaIA(e.target.value)}
+                  onKeyDown={handleIAKeyDown}
+                  rows={1}
+                  disabled={carregandoIA}
+                ></textarea>
+                
+                <button
+                  type="button"
+                  className="ia-inov__btn-enviar"
+                  onClick={enviarPerguntaIA}
+                  disabled={!perguntaIA.trim() || carregandoIA}
+                  aria-label="Enviar pergunta"
+                >
+                  {carregandoIA ? '...' : 'Enviar'}
+                </button>
+              </div>
+              <span className="ia-inov__dica">A inteligência artificial pode cometer erros. Para avaliações precisas, consulte nossa clínica.</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* MODAL ORIGINAL */}
+      {tratamentoSelecionado && (
+        <div
+          className="tratamentos__modal-overlay"
+          onClick={fecharTratamento}
+        >
+          <div
+            className="tratamentos__modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="tratamentos__modal-fechar"
+              onClick={fecharTratamento}
+              aria-label="Fechar"
+            >
+              <span></span>
+              <span></span>
+            </button>
+
+            <div className="tratamentos__modal-imagem">
+              <img
+                src={tratamentoSelecionado.imagem}
+                alt={tratamentoSelecionado.titulo}
+              />
+            </div>
+
+            <div className="tratamentos__modal-conteudo">
+              <span className="tratamentos__modal-categoria">
+                {tratamentoSelecionado.categoria}
+              </span>
+
+              <h2>{tratamentoSelecionado.titulo}</h2>
+
+              <div className="tratamentos__modal-linha"></div>
+
+              <p className="tratamentos__modal-descricao">
+                {tratamentoSelecionado.descricao}
+              </p>
+
+              <div className="tratamentos__procedimentos">
+                {tratamentoSelecionado.procedimentos.map((procedimento) => (
+                  <div
+                    key={procedimento.nome}
+                    className="tratamentos__procedimento"
+                  >
+                    <div className="tratamentos__procedimento-ponto"></div>
+
+                    <div>
+                      <h3>{procedimento.nome}</h3>
+                      <p>{procedimento.descricao}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="tratamentos__modal-observacao">
+                Os procedimentos são indicados após avaliação individualizada
+                e podem variar conforme as necessidades de cada pessoa.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+export default Tratamentos
