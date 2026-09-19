@@ -850,6 +850,15 @@
   border-bottom: 1px solid rgba(190, 164, 105, 0.2);
 }
 
+.ia-inov__resposta-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ia-inov__resposta-area::-webkit-scrollbar-thumb {
+  background: rgba(190, 164, 105, 0.4);
+  border-radius: 4px;
+}
+
 .ia-inov__carregando {
   display: flex;
   align-items: center;
@@ -886,14 +895,31 @@
   gap: 15px;
   align-items: flex-start;
   background: #ffffff;
-  padding: 20px;
+  padding: 22px;
   border-radius: 1rem;
   border-left: 3px solid var(--gold);
   box-shadow: 0 5px 15px -10px rgba(0,0,0,0.1);
   animation: tratamentosModal 0.4s ease both;
-  overflow: hidden;
   width: 100%;
   box-sizing: border-box;
+}
+
+.ia-inov__mensagem-conteudo {
+  flex: 1;
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(190, 164, 105, 0.4) transparent;
+}
+
+.ia-inov__mensagem-conteudo::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ia-inov__mensagem-conteudo::-webkit-scrollbar-thumb {
+  background: rgba(190, 164, 105, 0.4);
+  border-radius: 4px;
 }
 
 .ia-inov__avatar {

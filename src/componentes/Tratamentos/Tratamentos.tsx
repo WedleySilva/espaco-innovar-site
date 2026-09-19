@@ -568,7 +568,9 @@ function Tratamentos() {
                   {respostaIA && (
                     <div className="ia-inov__mensagem">
                       <span className="ia-inov__avatar">✨</span>
-                      <p>{respostaIA}</p>
+                      <div className="ia-inov__mensagem-conteudo">
+                        <p>{respostaIA}</p>
+                      </div>
                     </div>
                   )}
                 </div>
