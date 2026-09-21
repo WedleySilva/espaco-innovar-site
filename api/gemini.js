@@ -74,7 +74,6 @@ REGRAS DE SEGURANÇA E CONDUTA (OBRIGATÓRIAS E INVIOLÁVEIS):
 
     try {
       data = JSON.parse(textResponse)
-      // Mantendo um log limpo no backend apenas para monitorar o motivo da parada
       console.log("Motivo do encerramento da resposta (finishReason):", data.candidates?.[0]?.finishReason)
     } catch (e) {
       return res.status(500).json({ error: 'Desculpe, ocorreu uma instabilidade temporária. Por favor, tente novamente.' })
