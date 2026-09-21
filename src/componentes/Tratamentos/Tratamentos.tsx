@@ -276,6 +276,7 @@ function Tratamentos() {
   const [respostaIA, setRespostaIA] = useState('')
   const [carregandoIA, setCarregandoIA] = useState(false)
   const [erroIA, setErroIA] = useState('')
+  const [modalIAAberto, setModalIAAberto] = useState(false)
   const ROTACOES_ARRAS_THRESHOLD = 5
 
   const navegar = (direcao: 'esquerda' | 'direita') => {
@@ -379,9 +380,11 @@ function Tratamentos() {
       }
 
       setRespostaIA(data.resposta)
+      setModalIAAberto(true)
       setPerguntaIA('') 
     } catch (error: any) {
       setErroIA(error.message || 'Falha na conexão. Verifique sua internet e tente novamente.')
+      setModalIAAberto(true)
     } finally {
       setCarregandoIA(false)
     }
@@ -550,29 +553,10 @@ function Tratamentos() {
             </div>
 
             <div className="ia-inov__container">
-              {(respostaIA || carregandoIA || erroIA) && (
-                <div className="ia-inov__resposta-area">
-                  {carregandoIA && (
-                    <div className="ia-inov__carregando">
-                      <div className="ia-inov__spinner"></div>
-                      Consultando especialistas virtuais...
-                    </div>
-                  )}
-                  
-                  {erroIA && (
-                    <div className="ia-inov__erro">
-                      ⚠️ {erroIA}
-                    </div>
-                  )}
-
-                  {respostaIA && (
-                    <div className="ia-inov__mensagem">
-                      <span className="ia-inov__avatar">✨</span>
-                      <div className="ia-inov__mensagem-conteudo">
-                        <p>{respostaIA}</p>
-                      </div>
-                    </div>
-                  )}
+              {carregandoIA && (
+                <div className="ia-inov__carregando" style={{ marginBottom: '20px' }}>
+                  <div className="ia-inov__spinner"></div>
+                  Consultando especialistas virtuais...
                 </div>
               )}
               
@@ -663,6 +647,45 @@ function Tratamentos() {
                 Os procedimentos são indicados após avaliação individualizada
                 e podem variar conforme as necessidades de cada pessoa.
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modalIAAberto && (
+        <div
+          className="ia-inov__modal-overlay"
+          onClick={() => setModalIAAberto(false)}
+        >
+          <div
+            className="ia-inov__modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="ia-inov__modal-fechar"
+              onClick={() => setModalIAAberto(false)}
+              aria-label="Fechar"
+            >
+              <span></span>
+              <span></span>
+            </button>
+
+            <div className="ia-inov__modal-conteudo">
+              <div className="ia-inov__modal-cabecalho">
+                <span className="ia-inov__avatar">✨</span>
+                <h3>Resposta da Assistente</h3>
+              </div>
+              
+              {erroIA ? (
+                <div className="ia-inov__erro">
+                  ⚠️ {erroIA}
+                </div>
+              ) : (
+                <div className="ia-inov__mensagem-texto">
+                  <p>{respostaIA}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
