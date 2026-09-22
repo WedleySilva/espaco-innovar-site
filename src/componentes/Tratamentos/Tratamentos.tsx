@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Tratamentos.css'
 
@@ -24,66 +24,18 @@ export const tratamentos: Tratamento[] = [
     imagem:
       'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=85',
     procedimentos: [
-      {
-        nome: 'Toxina botulínica (Botox)',
-        descricao:
-          'Suaviza rugas de expressão e pode ajudar a prevenir novas linhas, mantendo um aspecto natural.',
-      },
-      {
-        nome: 'Preenchimento labial',
-        descricao:
-          'Realça o contorno, proporciona volume e melhora a hidratação dos lábios.',
-      },
-      {
-        nome: 'Preenchimento facial',
-        descricao:
-          'Reposição de volume para harmonizar contornos e suavizar sulcos.',
-      },
-      {
-        nome: 'Skinbooster',
-        descricao:
-          'Hidratação profunda que contribui para melhorar viço, elasticidade e textura da pele.',
-      },
-      {
-        nome: 'Bioestimulador de colágeno',
-        descricao:
-          'Estimula a produção natural de colágeno, contribuindo para firmeza e rejuvenescimento.',
-      },
-      {
-        nome: 'Fios de PDO',
-        descricao:
-          'Procedimento que pode promover efeito lifting e estimular a produção de colágeno.',
-      },
-      {
-        nome: 'Microagulhamento com ativos',
-        descricao:
-          'Estimula a renovação da pele e potencializa a absorção de ativos.',
-      },
-      {
-        nome: 'Subcisão para acne',
-        descricao:
-          'Técnica utilizada para melhorar cicatrizes de acne por meio da liberação de fibroses.',
-      },
-      {
-        nome: 'Limpeza de pele Premium',
-        descricao:
-          'Higienização profunda com etapas completas para remover impurezas, controlar a oleosidade, hidratar e revitalizar a pele.',
-      },
-      {
-        nome: 'Limpeza de pele simples',
-        descricao:
-          'Remove impurezas, células mortas e cravos superficiais, deixando a pele limpa e saudável.',
-      },
-      {
-        nome: 'Peeling de diamante',
-        descricao:
-          'Esfoliação mecânica que auxilia na renovação da pele, textura e aparência de manchas.',
-      },
-      {
-        nome: 'Peeling químico',
-        descricao:
-          'Aplicação de ácidos específicos para promover renovação celular, conforme avaliação profissional.',
-      },
+      { nome: 'Toxina botulínica (Botox)', descricao: 'Suaviza rugas de expressão e pode ajudar a prevenir novas linhas, mantendo um aspecto natural.' },
+      { nome: 'Preenchimento labial', descricao: 'Realça o contorno, proporciona volume e melhora a hidratação dos lábios.' },
+      { nome: 'Preenchimento facial', descricao: 'Reposição de volume para harmonizar contornos e suavizar sulcos.' },
+      { nome: 'Skinbooster', descricao: 'Hidratação profunda que contribui para melhorar viço, elasticidade e textura da pele.' },
+      { nome: 'Bioestimulador de colágeno', descricao: 'Estimula a produção natural de colágeno, contribuindo para firmeza e rejuvenescimento.' },
+      { nome: 'Fios de PDO', descricao: 'Procedimento que pode promover efeito lifting e estimular a produção de colágeno.' },
+      { nome: 'Microagulhamento com ativos', descricao: 'Estimula a renovação da pele e potencializa a absorção de ativos.' },
+      { nome: 'Subcisão para acne', descricao: 'Técnica utilizada para melhorar cicatrizes de acne por meio da liberação de fibroses.' },
+      { nome: 'Limpeza de pele Premium', descricao: 'Higienização profunda com etapas completas para remover impurezas, controlar a oleosidade, hidratar e revitalizar a pele.' },
+      { nome: 'Limpeza de pele simples', descricao: 'Remove impurezas, células mortas e cravos superficiais, deixando a pele limpa e saudável.' },
+      { nome: 'Peeling de diamante', descricao: 'Esfoliação mecânica que auxilia na renovação da pele, textura e aparência de manchas.' },
+      { nome: 'Peeling químico', descricao: 'Aplicação de ácidos específicos para promover renovação celular, conforme avaliação profissional.' },
     ],
   },
   {
@@ -94,46 +46,14 @@ export const tratamentos: Tratamento[] = [
     imagem:
       'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1000&q=85',
     procedimentos: [
-      {
-        nome: 'Subcisão de celulites',
-        descricao:
-          'Técnica que libera travas de fibrose, contribuindo para reduzir o aspecto da celulite.',
-      },
-      {
-        nome: 'Tratamento para estrias',
-        descricao:
-          'Estimula a regeneração da pele, buscando melhorar a textura e a aparência das estrias.',
-      },
-      {
-        nome: 'Massagem terapêutica com ventosaterapia',
-        descricao:
-          'Técnica voltada ao alívio de dores musculares, redução de tensões e melhora da circulação.',
-      },
-      {
-        nome: 'Massagem relaxante',
-        descricao:
-          'Promove relaxamento profundo, redução do estresse e sensação de bem-estar.',
-      },
-      {
-        nome: 'Massagem modeladora com pantalas',
-        descricao:
-          'Auxilia na redução de medidas, melhora do contorno corporal e estimula a circulação.',
-      },
-      {
-        nome: 'Drenagem linfática',
-        descricao:
-          'Técnica que auxilia na redução do inchaço, eliminação de líquidos retidos e circulação linfática.',
-      },
-      {
-        nome: 'Manta térmica detox',
-        descricao:
-          'Favorece a transpiração e pode complementar protocolos voltados à redução de retenção de líquidos.',
-      },
-      {
-        nome: 'Protocolos para redução de medidas e emagrecimento',
-        descricao:
-          'Tratamentos personalizados que auxiliam na diminuição de medidas, gordura localizada e melhora do contorno corporal, associados a hábitos saudáveis.',
-      },
+      { nome: 'Subcisão de celulites', descricao: 'Técnica que libera travas de fibrose, contribuindo para reduzir o aspecto da celulite.' },
+      { nome: 'Tratamento para estrias', descricao: 'Estimula a regeneração da pele, buscando melhorar a textura e a aparência das estrias.' },
+      { nome: 'Massagem terapêutica com ventosaterapia', descricao: 'Técnica voltada ao alívio de dores musculares, redução de tensões e melhora da circulação.' },
+      { nome: 'Massagem relaxante', descricao: 'Promove relaxamento profundo, redução do estresse e sensação de bem-estar.' },
+      { nome: 'Massagem modeladora com pantalas', descricao: 'Auxilia na redução de medidas, melhora do contorno corporal e estimula a circulação.' },
+      { nome: 'Drenagem linfática', descricao: 'Técnica que auxilia na redução do inchaço, eliminação de líquidos retidos e circulação linfática.' },
+      { nome: 'Manta térmica detox', descricao: 'Favorece a transpiração e pode complementar protocolos voltados à redução de retenção de líquidos.' },
+      { nome: 'Protocolos para redução de medidas e emagrecimento', descricao: 'Tratamentos personalizados que auxiliam na diminuição de medidas, gordura localizada e melhora do contorno corporal, associados a hábitos saudáveis.' },
     ],
   },
   {
@@ -144,71 +64,19 @@ export const tratamentos: Tratamento[] = [
     imagem:
       'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85',
     procedimentos: [
-      {
-        nome: 'Acelerador metabólico',
-        descricao:
-          'Protocolo de suporte voltado à otimização do metabolismo e disposição, conforme avaliação profissional.',
-      },
-      {
-        nome: 'Ganho de massa magra',
-        descricao:
-          'Protocolo de suporte para favorecer o desenvolvimento muscular, aliado à alimentação e exercícios.',
-      },
-      {
-        nome: 'Aumento da libido',
-        descricao:
-          'Protocolo voltado ao equilíbrio e bem-estar, podendo contribuir para melhora da libido.',
-      },
-      {
-        nome: 'Redução de celulite',
-        descricao:
-          'Protocolo voltado à melhora da circulação e da aparência da pele.',
-      },
-      {
-        nome: 'Auxílio no emagrecimento',
-        descricao:
-          'Protocolo que pode contribuir para o controle de peso quando associado a hábitos saudáveis.',
-      },
-      {
-        nome: "BCAA's",
-        descricao:
-          'Aminoácidos utilizados como suporte à recuperação muscular e ao desempenho físico.',
-      },
-      {
-        nome: 'Complexo B',
-        descricao:
-          'Suporte relacionado à produção de energia, disposição, metabolismo e funcionamento do sistema nervoso.',
-      },
-      {
-        nome: 'Zinco',
-        descricao:
-          'Nutriente relacionado à cicatrização, imunidade e manutenção da saúde.',
-      },
-      {
-        nome: 'Picolinato de cromo',
-        descricao:
-          'Ativo utilizado em protocolos individualizados relacionados ao metabolismo, sempre conforme avaliação profissional.',
-      },
-      {
-        nome: 'Procaína benzoica com cafeína',
-        descricao:
-          'Ativo utilizado em protocolos personalizados conforme objetivos e avaliação profissional.',
-      },
-      {
-        nome: 'Aminoácidos',
-        descricao:
-          'Podem contribuir para produção de colágeno, recuperação tecidual e manutenção da massa muscular.',
-      },
-      {
-        nome: 'Curcumina',
-        descricao:
-          'Possui ação antioxidante e anti-inflamatória, contribuindo para o bem-estar do organismo.',
-      },
-      {
-        nome: 'Ativos para flacidez',
-        descricao:
-          'Protocolos voltados ao estímulo de colágeno e elastina, buscando melhorar firmeza e qualidade da pele.',
-      },
+      { nome: 'Acelerador metabólico', descricao: 'Protocolo de suporte voltado à otimização do metabolismo e disposição, conforme avaliação profissional.' },
+      { nome: 'Ganho de massa magra', descricao: 'Protocolo de suporte para favorecer o desenvolvimento muscular, aliado à alimentação e exercícios.' },
+      { nome: 'Aumento da libido', descricao: 'Protocolo voltado ao equilíbrio e bem-estar, podendo contribuir para melhora da libido.' },
+      { nome: 'Redução de celulite', descricao: 'Protocolo voltado à melhora da circulação e da aparência da pele.' },
+      { nome: 'Auxílio no emagrecimento', descricao: 'Protocolo que pode contribuir para o controle de peso quando associado a hábitos saudáveis.' },
+      { nome: "BCAA's", descricao: 'Aminoácidos utilizados como suporte à recuperação muscular e ao desempenho físico.' },
+      { nome: 'Complexo B', descricao: 'Suporte relacionado à produção de energia, disposição, metabolismo e funcionamento do sistema nervoso.' },
+      { nome: 'Zinco', descricao: 'Nutriente relacionado à cicatrização, imunidade e manutenção da saúde.' },
+      { nome: 'Picolinato de cromo', descricao: 'Ativo utilizado em protocolos individualizados relacionados ao metabolismo, sempre conforme avaliação profissional.' },
+      { nome: 'Procaína benzoica com cafeína', descricao: 'Ativo utilizado em protocolos personalizados conforme objetivos e avaliação profissional.' },
+      { nome: 'Aminoácidos', descricao: 'Podem contribuir para produção de colágeno, recuperação tecidual e manutenção da massa muscular.' },
+      { nome: 'Curcumina', descricao: 'Possui ação antioxidante e anti-inflamatória, contribuindo para o bem-estar do organismo.' },
+      { nome: 'Ativos para flacidez', descricao: 'Protocolos voltados ao estímulo de colágeno e elastina, buscando melhorar firmeza e qualidade da pele.' },
     ],
   },
   {
@@ -219,41 +87,13 @@ export const tratamentos: Tratamento[] = [
     imagem:
       'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85',
     procedimentos: [
-      {
-        nome: 'Remoção de verrugas com jato de plasma',
-        descricao:
-          'Procedimento minimamente invasivo que utiliza jato de plasma. A lesão deve ser avaliada previamente para confirmar sua compatibilidade com o procedimento.',
-      },
-      {
-        nome: 'PEIM — Aplicação de Microvasos',
-        descricao:
-          'Procedimento destinado ao tratamento de microvasos aparentes por meio da aplicação de solução específica.',
-      },
-      {
-        nome: 'Depilação a laser de diodo',
-        descricao:
-          'Tecnologia que atua diretamente no folículo do pelo, promovendo redução progressiva dos pelos.',
-      },
-      {
-        nome: 'Radiofrequência',
-        descricao:
-          'Tecnologia utilizada em protocolos estéticos personalizados conforme avaliação profissional.',
-      },
-      {
-        nome: 'Ultrassom',
-        descricao:
-          'Tecnologia que pode ser integrada a protocolos corporais e estéticos personalizados.',
-      },
-      {
-        nome: 'Laser',
-        descricao:
-          'Tecnologia aplicada em protocolos específicos conforme indicação e avaliação profissional.',
-      },
-      {
-        nome: 'Criofrequência',
-        descricao:
-          'Tecnologia utilizada em protocolos estéticos personalizados para diferentes objetivos corporais e faciais.',
-      },
+      { nome: 'Remoção de verrugas com jato de plasma', descricao: 'Procedimento minimamente invasivo que utiliza jato de plasma. A lesão deve ser avaliada previamente para confirmar sua compatibilidade.' },
+      { nome: 'PEIM — Aplicação de Microvasos', descricao: 'Procedimento destinado ao tratamento de microvasos aparentes por meio da aplicação de solução específica.' },
+      { nome: 'Depilação a laser de diodo', descricao: 'Tecnologia que atua diretamente no folículo do pelo, promovendo redução progressiva dos pelos.' },
+      { nome: 'Radiofrequência', descricao: 'Tecnologia utilizada em protocolos estéticos personalizados conforme avaliação profissional.' },
+      { nome: 'Ultrassom', descricao: 'Tecnologia que pode ser integrada a protocolos corporais e estéticos personalizados.' },
+      { nome: 'Laser', descricao: 'Tecnologia aplicada em protocolos específicos conforme indicação e avaliação profissional.' },
+      { nome: 'Criofrequência', descricao: 'Tecnologia utilizada em protocolos estéticos personalizados para diferentes objetivos corporais e faciais.' },
     ],
   },
 ]
@@ -267,6 +107,27 @@ function Tratamentos() {
   const inicioX = useRef(0)
   const scrollInicial = useRef(0)
   const ROTACAO_ARRASTE_THRESHOLD = 5
+
+  useEffect(() => {
+    const handleAbrirModal = (event: Event) => {
+      const customEvent = event as CustomEvent
+      const categoria = customEvent.detail
+      
+      const tratamentoEncontrado = tratamentos.find(
+        (t) => t.categoria === categoria
+      )
+      
+      if (tratamentoEncontrado) {
+        setTratamentoSelecionado(tratamentoEncontrado)
+      }
+    }
+
+    window.addEventListener('abrirTratamentoModal', handleAbrirModal)
+    
+    return () => {
+      window.removeEventListener('abrirTratamentoModal', handleAbrirModal)
+    }
+  }, [])
 
   const navegar = (direcao: 'esquerda' | 'direita') => {
     if (!faixaRef.current) return
@@ -455,15 +316,15 @@ function Tratamentos() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.4 }}
           >
             <motion.div
               className="tratamentos__modal"
               onClick={(event) => event.stopPropagation()}
-              initial={{ opacity: 0, y: 25, scale: 0.98 }}
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.98 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              exit={{ opacity: 0, y: 25, scale: 0.96 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <button
                 type="button"
@@ -495,21 +356,32 @@ function Tratamentos() {
                   {tratamentoSelecionado.descricao}
                 </p>
 
-                <div className="tratamentos__procedimentos">
+                <motion.div 
+                  className="tratamentos__procedimentos"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.1 } },
+                    hidden: {}
+                  }}
+                >
                   {tratamentoSelecionado.procedimentos.map((procedimento) => (
-                    <div
+                    <motion.div
                       key={procedimento.nome}
                       className="tratamentos__procedimento"
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }
+                      }}
                     >
                       <div className="tratamentos__procedimento-ponto" />
-
                       <div>
                         <h3>{procedimento.nome}</h3>
                         <p>{procedimento.descricao}</p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
 
                 <div className="tratamentos__modal-observacao">
                   Os procedimentos são indicados após avaliação individualizada

@@ -299,40 +299,40 @@
   align-items: center;
   justify-content: center;
   padding: 35px;
-  background: rgba(27, 48, 49, 0.48);
-  backdrop-filter: blur(8px);
+  background: rgba(27, 48, 49, 0.6);
+  backdrop-filter: blur(12px);
 }
 
 .tratamentos__modal {
   position: relative;
-  width: min(980px, 100%);
+  width: min(1080px, 100%);
   height: 100%;
   max-height: min(850px, 92vh);
   display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
+  grid-template-columns: 0.75fr 1.25fr;
   overflow: hidden;
   border: 1px solid rgba(190, 164, 105, 0.35);
-  border-radius: 1.8rem;
+  border-radius: 2rem;
   background: #fffdf9;
-  box-shadow: 0 35px 90px -35px rgba(0, 60, 60, 0.55);
+  box-shadow: 0 45px 100px -25px rgba(0, 60, 60, 0.65);
 }
 
 .tratamentos__modal-fechar {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 22px;
+  right: 22px;
   z-index: 5;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(12, 129, 126, 0.15);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .tratamentos__modal-fechar span {
@@ -344,24 +344,15 @@
   transition: background 0.3s ease;
 }
 
-.tratamentos__modal-fechar span:first-child {
-  transform: rotate(45deg);
-}
-
-.tratamentos__modal-fechar span:last-child {
-  transform: rotate(-45deg);
-}
+.tratamentos__modal-fechar span:first-child { transform: rotate(45deg); }
+.tratamentos__modal-fechar span:last-child { transform: rotate(-45deg); }
 
 .tratamentos__modal-fechar:hover {
   background: var(--teal-deep);
-  border-color: var(--teal-deep);
   transform: scale(1.1) rotate(90deg);
   box-shadow: 0 8px 20px -6px rgba(0, 60, 60, 0.4);
 }
-
-.tratamentos__modal-fechar:hover span {
-  background: #ffffff;
-}
+.tratamentos__modal-fechar:hover span { background: #ffffff; }
 
 .tratamentos__modal-imagem {
   min-height: 620px;
@@ -380,14 +371,14 @@
   height: 100%;
   padding: 55px 50px 45px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(22, 176, 171, 0.35) transparent;
+  scrollbar-color: rgba(217, 189, 130, 0.5) transparent;
 }
 
 .tratamentos__modal-categoria {
   color: var(--teal-deep);
   font-family: 'Jost', sans-serif;
-  font-size: 0.62rem;
-  font-weight: 400;
+  font-size: 0.65rem;
+  font-weight: 500;
   letter-spacing: 0.25em;
 }
 
@@ -395,7 +386,7 @@
   margin-top: 10px;
   color: var(--teal-deep);
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3.2rem;
+  font-size: 3.4rem;
   font-weight: 300;
   line-height: 1;
 }
@@ -403,147 +394,130 @@
 .tratamentos__modal-linha {
   width: 75px;
   height: 1px;
-  margin: 20px 0 18px;
+  margin: 20px 0;
   background: var(--gold-rule);
 }
 
 .tratamentos__modal-descricao {
   color: var(--text);
   font-family: 'Jost', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 300;
   line-height: 1.8;
 }
 
-.tratamentos__modal-observacao {
-  margin-top: 28px;
-  padding: 15px 17px;
-  border-left: 2px solid var(--gold);
-  background: rgba(212, 239, 238, 0.28);
-  color: rgba(44, 70, 73, 0.78);
+.tratamentos__procedimentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 35px;
+}
+
+.tratamentos__procedimento {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 22px;
+  border: 1px solid rgba(217, 189, 130, 0.25);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.tratamentos__procedimento:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(0, 60, 60, 0.12);
+  border-color: rgba(217, 189, 130, 0.6);
+  background: #ffffff;
+}
+
+.tratamentos__procedimento-ponto {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-top: 6px;
+  box-shadow: 0 0 0 4px rgba(217, 189, 130, 0.15);
+}
+
+.tratamentos__procedimento h3 {
+  margin: 0 0 6px 0;
+  color: var(--teal-deep);
   font-family: 'Jost', sans-serif;
-  font-size: 0.62rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.tratamentos__procedimento p {
+  margin: 0;
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.tratamentos__modal-observacao {
+  margin-top: 35px;
+  padding: 18px 22px;
+  border-left: 2px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  background: rgba(212, 239, 238, 0.25);
+  color: rgba(44, 70, 73, 0.85);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
   font-weight: 300;
   line-height: 1.6;
 }
 
 @media (max-width: 1050px) {
-  .tratamentos {
-    padding: 0px 0 90px;
-  }
-  .tratamentos__cabecalho {
-    margin-bottom: 38px;
-  }
-  .tratamentos__imagem-wrapper {
-    height: 250px;
-  }
-  .tratamentos__modal {
-    grid-template-columns: 0.7fr 1.3fr;
-  }
-  .tratamentos__modal-imagem {
-    min-height: 580px;
-  }
-  .tratamentos__modal-conteudo {
-    padding: 45px 38px 40px;
-  }
+  .tratamentos { padding: 0px 0 90px; }
+  .tratamentos__cabecalho { margin-bottom: 38px; }
+  .tratamentos__imagem-wrapper { height: 250px; }
+  .tratamentos__modal { grid-template-columns: 0.7fr 1.3fr; }
+  .tratamentos__modal-imagem { min-height: 580px; }
+  .tratamentos__modal-conteudo { padding: 45px 38px 40px; }
 }
 
 @media (max-width: 900px) {
-  .tratamentos__container {
-    width: 85%;
-  }
-  .tratamentos__cabecalho {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .tratamentos__modal-overlay {
-    padding: 25px;
-  }
+  .tratamentos__container { width: 85%; }
+  .tratamentos__cabecalho { flex-direction: column; align-items: flex-start; }
+  .tratamentos__modal-overlay { padding: 25px; }
   .tratamentos__modal {
     max-height: 90vh;
     grid-template-columns: 1fr;
     grid-template-rows: 230px 1fr;
   }
-  .tratamentos__modal-imagem {
-    min-height: 0;
-  }
-  .tratamentos__modal-conteudo {
-    padding: 32px 32px 35px;
-  }
-  .tratamentos__modal-conteudo h2 {
-    font-size: 2.8rem;
-  }
+  .tratamentos__modal-imagem { min-height: 0; }
+  .tratamentos__modal-conteudo { padding: 32px 32px 35px; }
+  .tratamentos__modal-conteudo h2 { font-size: 2.8rem; }
 }
 
 @media (max-width: 600px) {
-  .tratamentos {
-    padding: 0px 0 80px;
-  }
-  .tratamentos__container {
-    width: 90%;
-  }
-  .tratamentos__eyebrow {
-    margin-bottom: 15px;
-    font-size: 0.58rem;
-    letter-spacing: 0.25em;
-  }
-  .tratamentos__titulo {
-    font-size: clamp(2.55rem, 11vw, 3.4rem);
-  }
-  .tratamentos__descricao {
-    margin-top: 16px;
-    font-size: 0.72rem;
-    line-height: 1.75;
-  }
-  .tratamentos__cabecalho {
-    margin-bottom: 30px;
-  }
-  .tratamentos__nav-btn {
-    width: 42px;
-    height: 42px;
-    font-size: 0.95rem;
-  }
-  .tratamentos__card {
-    min-width: 260px;
-    border-radius: 1.3rem;
-  }
-  .tratamentos__imagem-wrapper {
-    height: 225px;
-  }
-  .tratamentos__card-conteudo {
-    min-height: 235px;
-    padding: 21px 19px 18px;
-  }
-  .tratamentos__card-conteudo h3 {
-    font-size: 1.5rem;
-  }
-  .tratamentos__card-conteudo p {
-    font-size: 0.65rem;
-  }
-  .tratamentos__modal-overlay {
-    padding: 12px;
-  }
+  .tratamentos { padding: 0px 0 80px; }
+  .tratamentos__container { width: 90%; }
+  .tratamentos__eyebrow { margin-bottom: 15px; font-size: 0.58rem; letter-spacing: 0.25em; }
+  .tratamentos__titulo { font-size: clamp(2.55rem, 11vw, 3.4rem); }
+  .tratamentos__descricao { margin-top: 16px; font-size: 0.72rem; line-height: 1.75; }
+  .tratamentos__cabecalho { margin-bottom: 30px; }
+  .tratamentos__nav-btn { width: 42px; height: 42px; font-size: 0.95rem; }
+  .tratamentos__card { min-width: 260px; border-radius: 1.3rem; }
+  .tratamentos__imagem-wrapper { height: 225px; }
+  .tratamentos__card-conteudo { min-height: 235px; padding: 21px 19px 18px; }
+  .tratamentos__card-conteudo h3 { font-size: 1.5rem; }
+  .tratamentos__card-conteudo p { font-size: 0.65rem; }
+  .tratamentos__modal-overlay { padding: 12px; }
   .tratamentos__modal {
     max-height: 94vh;
-    border-radius: 1.4rem;
+    border-radius: 1.8rem;
     grid-template-rows: 190px 1fr;
   }
-  .tratamentos__modal-fechar {
-    top: 12px;
-    right: 12px;
-    width: 38px;
-    height: 38px;
-  }
-  .tratamentos__modal-fechar span {
-    width: 16px;
-  }
-  .tratamentos__modal-conteudo {
-    padding: 27px 22px 30px;
-  }
-  .tratamentos__modal-conteudo h2 {
-    font-size: 2.45rem;
-  }
-  .tratamentos__modal-descricao {
-    font-size: 0.7rem;
-  }
+  .tratamentos__modal-fechar { top: 12px; right: 12px; width: 38px; height: 38px; }
+  .tratamentos__modal-fechar span { width: 16px; }
+  .tratamentos__modal-conteudo { padding: 27px 22px 30px; }
+  .tratamentos__modal-conteudo h2 { font-size: 2.45rem; }
+  .tratamentos__modal-descricao { font-size: 0.76rem; }
+  .tratamentos__procedimentos { grid-template-columns: 1fr; }
 }
