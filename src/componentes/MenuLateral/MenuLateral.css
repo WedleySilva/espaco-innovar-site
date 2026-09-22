@@ -1,0 +1,200 @@
+.menu-lateral__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1090;
+  background: rgba(0, 0, 0, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+.menu-lateral__overlay--aberto {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.menu-lateral {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(360px, 88vw);
+  height: 100dvh;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 34px 30px 30px;
+  background: #ffffff;
+  box-shadow: -12px 0 35px rgba(0, 0, 0, 0.12);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-lateral--aberto {
+  transform: translateX(0);
+}
+
+.menu-lateral__topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(217, 189, 130, 0.28);
+}
+
+.menu-lateral__marca {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-lateral__marca > span {
+  color: #d9bd82;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 29px;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 4px;
+}
+
+.menu-lateral__marca > span + span {
+  margin-top: 2px;
+}
+
+.menu-lateral__marca small {
+  margin-top: 11px;
+  color: #55babb;
+  font-size: 7px;
+  font-weight: 400;
+  letter-spacing: 2.3px;
+}
+
+.menu-lateral__fechar {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #d9bd82;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.menu-lateral__fechar:hover {
+  background-color: rgba(217, 189, 130, 0.08);
+  transform: rotate(90deg);
+}
+
+.menu-lateral__fechar:focus-visible {
+  outline: 2px solid #d9bd82;
+  outline-offset: 3px;
+}
+
+.menu-lateral__fechar svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #12aaa9;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.menu-lateral__navegacao {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.menu-lateral__navegacao a {
+  position: relative;
+  padding: 18px 0;
+  color: #16a5a7;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(217, 189, 130, 0.18);
+  transition:
+    color 0.25s ease,
+    padding-left 0.25s ease;
+}
+
+.menu-lateral__navegacao a:hover {
+  padding-left: 7px;
+  color: #007c77;
+}
+
+.menu-lateral__botao {
+  width: 100%;
+  height: 48px;
+  margin-top: auto;
+  padding: 0 24px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(
+    90deg,
+    #11aaa8,
+    #007c77
+  );
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.6px;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.menu-lateral__botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(0, 128, 124, 0.18);
+}
+
+.menu-lateral__botao:focus-visible {
+  outline: 2px solid #d9bd82;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .menu-lateral {
+    width: min(340px, 90vw);
+    padding: 28px 24px 24px;
+  }
+
+  .menu-lateral__marca > span {
+    font-size: 25px;
+    letter-spacing: 3.5px;
+  }
+
+  .menu-lateral__marca small {
+    font-size: 6px;
+    letter-spacing: 2px;
+  }
+
+  .menu-lateral__navegacao a {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 961px) {
+  .menu-lateral,
+  .menu-lateral__overlay {
+    display: none;
+  }
+}
