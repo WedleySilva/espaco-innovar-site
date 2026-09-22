@@ -1,6 +1,7 @@
 import Cabecalho from './componentes/Cabecalho/Cabecalho'
 import Inicio from './componentes/Inicio/Inicio'
 import Tratamentos from './componentes/Tratamentos/Tratamentos'
+import Procedimentos from './componentes/Procedimentos/Procedimentos'
 import Avaliacao from './componentes/Avaliacao/Avaliacao'
 import Clinica from './componentes/Clinica/Clinica'
 import Experiencia from './componentes/Experiencia/Experiencia'
@@ -18,6 +19,7 @@ function App() {
       <main>
         <Inicio />
         <Tratamentos />
+        <Procedimentos />
         <Avaliacao />
         <Clinica />
         <Experiencia />
