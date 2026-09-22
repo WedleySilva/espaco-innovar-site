@@ -2,11 +2,9 @@
   position: relative;
   min-height: 122vh;
   overflow: hidden;
-
   display: flex;
   align-items: flex-start;
-
-  padding: 115px 0 120px;
+  padding: 115px 0 0px;
 }
 
 .inicio__fundo {
@@ -204,8 +202,6 @@
   padding-top: 24px;
 
   border-top: 1px solid rgba(180, 155, 100, 0.28);
-
-  opacity: 0.72;
 }
 
 .inicio__indicador {
@@ -367,7 +363,7 @@
     min-height: 120vh;
 
     padding-top: 110px;
-    padding-bottom: 110px;
+    padding-bottom: 0px;
   }
 
   .inicio__container {
@@ -403,7 +399,7 @@
   .inicio {
     min-height: 140vh;
 
-    padding: 110px 0 130px;
+    padding: 110px 0 0px;
   }
 
   .inicio__container {
@@ -459,7 +455,7 @@
   .inicio {
     min-height: 145vh;
 
-    padding: 100px 0 115px;
+    padding: 100px 0 0px;
   }
 
   .inicio__container {

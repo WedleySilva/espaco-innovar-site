@@ -18,12 +18,13 @@
 
 .cabecalho__container {
   width: 76%;
+  max-width: 1200px;
   height: 100%;
   margin: 0 auto;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .cabecalho__logo {
@@ -37,13 +38,10 @@
 .cabecalho__logo-icone {
   width: 68px;
   height: 68px;
-
   display: block;
   object-fit: contain;
-
   border: none;
   border-radius: 0;
-
   flex-shrink: 0;
 }
 
@@ -65,9 +63,7 @@
   display: flex;
   align-items: center;
   gap: 9px;
-
   margin-top: 7px;
-
   color: #55babb;
   font-size: 7px;
   letter-spacing: 3px;
@@ -84,38 +80,30 @@
   display: flex;
   align-items: center;
   gap: 30px;
-
   margin-left: auto;
   margin-right: 30px;
+  flex-shrink: 1;
 }
 
 .cabecalho__navegacao a {
   position: relative;
-
   color: #16a5a7;
-
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 2px;
-
   text-decoration: none;
   white-space: nowrap;
-
   transition: color 0.3s ease;
 }
 
 .cabecalho__navegacao a::after {
   content: '';
-
   position: absolute;
   left: 0;
   bottom: -7px;
-
   width: 0;
   height: 1px;
-
   background-color: #d9bd82;
-
   transition: width 0.3s ease;
 }
 
@@ -124,89 +112,97 @@
 }
 
 .cabecalho__botao {
-  min-width: 130px;
   height: 42px;
-
-  padding: 0 28px;
-
+  padding: 0 24px;
   border: none;
   border-radius: 25px;
-
   background: linear-gradient(
     90deg,
     #11aaa8,
     #007c77
   );
-
   color: #ffffff;
-
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 1.6px;
-
   cursor: pointer;
   white-space: nowrap;
-
+  flex-shrink: 0;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .cabecalho__botao:hover {
   transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(0, 128, 124, 0.18);
+}
 
-  box-shadow:
-    0 7px 18px rgba(0, 128, 124, 0.18);
+.cabecalho__botao:focus-visible {
+  outline: 2px solid #d9bd82;
+  outline-offset: 3px;
 }
 
 .cabecalho__menu {
   display: none;
-
   width: 48px;
   height: 48px;
-
+  padding: 0;
   border: 1px solid #d9bd82;
   border-radius: 50%;
-
   background: transparent;
-
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 5px;
-
   cursor: pointer;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
 }
 
-.cabecalho__menu span {
-  display: block;
+.cabecalho__menu:hover {
+  background-color: rgba(217, 189, 130, 0.08);
+}
 
-  width: 23px;
-  height: 1px;
+.cabecalho__menu:focus-visible {
+  outline: 2px solid #d9bd82;
+  outline-offset: 3px;
+}
 
-  background-color: #12aaa9;
+.cabecalho__menu svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #12aaa9;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @media (max-width: 1200px) {
   .cabecalho__container {
-    width: 76%;
+    width: 85%;
   }
 
   .cabecalho__navegacao {
-    gap: 20px;
+    gap: 18px;
     margin-right: 20px;
   }
 
   .cabecalho__navegacao a {
     font-size: 9px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
   }
 
   .cabecalho__botao {
-    min-width: 205px;
     height: 40px;
-    padding: 0 20px;
+    padding: 0 16px;
     font-size: 9px;
+    letter-spacing: 1px;
   }
 
   .cabecalho__logo-icone {
@@ -219,7 +215,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .cabecalho {
     height: 110px;
   }
