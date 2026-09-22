@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { ChangeEvent, KeyboardEvent } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { tratamentos } from '../Tratamentos/Tratamentos'
 import './Procedimentos.css'
 
@@ -49,8 +50,7 @@ function Procedimentos() {
   const [pergunta, setPergunta] = useState('')
   const [resposta, setResposta] = useState('')
   const [carregandoIA, setCarregandoIA] = useState(false)
-  const [erroIA, setErroIA] = useState('')
-  const [assistenteAberto, setAssistenteAberto] = useState(false)
+  const [modalIAAberto, setModalIAAberto] = useState(false)
 
   const resultados = useMemo(() => {
     const termo = normalizar(pesquisa.trim())
@@ -90,10 +90,12 @@ function Procedimentos() {
   const enviarPergunta = async () => {
     const perguntaLimpa = pergunta.trim()
 
+    const mensagemQueda =
+      'No momento, nossa assistente está passando por uma breve atualização de beleza. Por favor, entre em contato diretamente com a Espaço Innovar para tirar sua dúvida.'
+
     if (!perguntaLimpa || carregandoIA) return
 
     setCarregandoIA(true)
-    setErroIA('')
     setResposta('')
 
     try {
@@ -104,211 +106,318 @@ function Procedimentos() {
         },
         body: JSON.stringify({
           pergunta: perguntaLimpa,
-          tratamentos,
+          baseDados: tratamentos,
         }),
       })
 
       const data = await response.json()
 
-      if (!response.ok) {
-        throw new Error(
-          data?.error || 'Não foi possível consultar o assistente.',
-        )
+      if (!response.ok || !data.resposta) {
+        setResposta(mensagemQueda)
+      } else {
+        setResposta(data.resposta)
       }
-
-      setResposta(
-        data.resposta || 'Não consegui obter uma resposta no momento.',
-      )
-    } catch (error) {
-      setErroIA(
-        error instanceof Error
-          ? error.message
-          : 'Não foi possível consultar o assistente.',
-      )
+    } catch {
+      setResposta(mensagemQueda)
     } finally {
+      setModalIAAberto(true)
       setCarregandoIA(false)
     }
   }
 
-  const pressionarEnter = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
+  const pressionarEnter = (
+    event: KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (event.key === 'Enter') {
       event.preventDefault()
       enviarPergunta()
     }
   }
 
-  const irParaTratamentos = () => {
+  const irParaTratamentos = (categoria: string) => {
     document.getElementById('tratamentos')?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     })
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent('abrirTratamentoModal', {
+          detail: categoria,
+        }),
+      )
+    }, 400)
   }
 
-  const alterarPesquisa = (event: ChangeEvent<HTMLInputElement>) => {
+  const alterarPesquisa = (
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
     setPesquisa(event.target.value)
   }
 
-  const alterarPergunta = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const alterarPergunta = (
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
     setPergunta(event.target.value)
   }
 
+  const limparPesquisa = () => {
+    setPesquisa('')
+  }
+
+  const fecharModalIA = () => {
+    setModalIAAberto(false)
+    setPergunta('')
+  }
+
   return (
-    <section id="procedimentos" className="procedimentos">
-      <div className="procedimentos__brilho procedimentos__brilho--topo" />
-      <div className="procedimentos__brilho procedimentos__brilho--base" />
+    <>
+      <section id="procedimentos" className="procedimentos">
+        <div className="procedimentos__brilho procedimentos__brilho--topo" />
+        <div className="procedimentos__brilho procedimentos__brilho--base" />
 
-      <div className="container procedimentos__container">
-        <div className="procedimentos__cabecalho">
-          <div>
-            <span className="procedimentos__eyebrow">
-              <i />
-              ENCONTRE UM PROCEDIMENTO
-            </span>
-
-            <h2 className="procedimentos__titulo">
-              Pesquise pelo <em>nome</em> ou pelo que deseja cuidar
-            </h2>
-
-            <p className="procedimentos__descricao">
-              Digite algo como “Botox”, “rugas”, “flacidez”, “celulite” ou
-              “hidratação”.
-            </p>
-          </div>
-        </div>
-
-        <div className="procedimentos__busca">
-          <div className="procedimentos__input-wrapper">
-            <svg
-              className="procedimentos__input-icone"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="6.5" />
-              <path d="M16 16L20 20" />
-            </svg>
-
-            <input
-              type="search"
-              value={pesquisa}
-              onChange={alterarPesquisa}
-              placeholder="O que você procura?"
-              aria-label="Pesquisar procedimento"
-            />
-
-            {pesquisa && (
-              <button
-                type="button"
-                className="procedimentos__limpar"
-                onClick={() => setPesquisa('')}
-                aria-label="Limpar pesquisa"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 7L17 17" />
-                  <path d="M17 7L7 17" />
-                </svg>
-              </button>
-            )}
-          </div>
-
-          {pesquisa.trim() && (
-            <div className="procedimentos__resultados">
-              <div className="procedimentos__resultados-topo">
-                <span>
-                  {resultados.length}{' '}
-                  {resultados.length === 1
-                    ? 'resultado encontrado'
-                    : 'resultados encontrados'}
-                </span>
-              </div>
-
-              {resultados.length > 0 ? (
-                <div className="procedimentos__resultados-grid">
-                  {resultados.map((resultado) => (
-                    <article
-                      key={`${resultado.categoria}-${resultado.nome}`}
-                      className="procedimentos__resultado"
-                    >
-                      <span>{resultado.categoria}</span>
-
-                      <h3>{resultado.nome}</h3>
-
-                      <p>{resultado.descricao}</p>
-
-                      <button
-                        type="button"
-                        onClick={irParaTratamentos}
-                      >
-                        VER NOS TRATAMENTOS
-                        <b>→</b>
-                      </button>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <div className="procedimentos__sem-resultados">
-                  <strong>Não encontramos esse procedimento.</strong>
-
-                  <p>
-                    Tente outro termo ou converse com nossa assistente para
-                    buscar uma informação específica.
-                  </p>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        <div className="procedimentos__assistente">
-          <div className="procedimentos__assistente-topo">
-            <div className="procedimentos__assistente-icone">
-              <span>✦</span>
-            </div>
-
+        <div className="container procedimentos__container">
+          <div className="procedimentos__cabecalho">
             <div>
-              <span className="procedimentos__assistente-eyebrow">
-                ASSISTENTE ESPAÇO INNOVAR
+              <span className="procedimentos__eyebrow">
+                <i />
+                ENCONTRE UM PROCEDIMENTO
               </span>
 
-              <h3>
-                Não encontrou o que procura? <em>Pergunte para nós.</em>
-              </h3>
+              <h2 className="procedimentos__titulo">
+                Pesquise pelo <em>nome</em> ou pelo que deseja cuidar
+              </h2>
 
-              <p>
-                Tire dúvidas sobre nossos procedimentos. A assistente responde
-                somente sobre os serviços e informações disponíveis da clínica.
+              <p className="procedimentos__descricao">
+                Digite algo como “Botox”, “rugas”, “flacidez”, “celulite” ou
+                “hidratação”.
               </p>
             </div>
           </div>
 
-          <button
-            type="button"
-            className="procedimentos__assistente-toggle"
-            onClick={() => {
-              setAssistenteAberto((aberto) => !aberto)
-              setErroIA('')
-            }}
-          >
-            {assistenteAberto
-              ? 'FECHAR ASSISTENTE'
-              : 'PERGUNTAR À ASSISTENTE'}
+          <div className="procedimentos__busca">
+            <div className="procedimentos__input-wrapper">
+              <svg
+                className="procedimentos__input-icone"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="6.5" />
+                <path d="M16 16L20 20" />
+              </svg>
 
-            <span>→</span>
-          </button>
+              <input
+                type="search"
+                value={pesquisa}
+                onChange={alterarPesquisa}
+                placeholder="O que você procura?"
+                aria-label="Pesquisar procedimento"
+                autoComplete="off"
+                spellCheck={false}
+                enterKeyHint="search"
+              />
 
-          {assistenteAberto && (
+              <AnimatePresence>
+                {pesquisa && (
+                  <motion.button
+                    type="button"
+                    className="procedimentos__limpar"
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      limparPesquisa()
+                    }}
+                    aria-label="Limpar pesquisa"
+                    initial={{
+                      opacity: 0,
+                      scale: 0.7,
+                      rotate: -20,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      rotate: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.7,
+                      rotate: 20,
+                    }}
+                    transition={{
+                      duration: 0.22,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    }}
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M7 7L17 17" />
+                      <path d="M17 7L7 17" />
+                    </svg>
+                  </motion.button>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <AnimatePresence>
+              {pesquisa.trim() && (
+                <motion.div
+                  className="procedimentos__resultados"
+                  initial={{
+                    opacity: 0,
+                    y: 8,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -6,
+                  }}
+                  transition={{
+                    duration: 0.3,
+                  }}
+                >
+                  <div className="procedimentos__resultados-topo">
+                    <span>
+                      {resultados.length}{' '}
+                      {resultados.length === 1
+                        ? 'resultado encontrado'
+                        : 'resultados encontrados'}
+                    </span>
+                  </div>
+
+                  {resultados.length > 0 ? (
+                    <motion.div
+                      className="procedimentos__resultados-grid"
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        visible: {
+                          transition: {
+                            staggerChildren: 0.12,
+                          },
+                        },
+                        hidden: {},
+                      }}
+                    >
+                      {resultados.map((resultado) => (
+                        <motion.article
+                          key={`${resultado.categoria}-${resultado.nome}`}
+                          className="procedimentos__resultado"
+                          role="button"
+                          tabIndex={0}
+                          onClick={() =>
+                            irParaTratamentos(resultado.categoria)
+                          }
+                          onKeyDown={(event) => {
+                            if (
+                              event.key === 'Enter' ||
+                              event.key === ' '
+                            ) {
+                              event.preventDefault()
+                              irParaTratamentos(resultado.categoria)
+                            }
+                          }}
+                          variants={{
+                            hidden: {
+                              opacity: 0,
+                              y: 25,
+                              scale: 0.97,
+                            },
+                            visible: {
+                              opacity: 1,
+                              y: 0,
+                              scale: 1,
+                              transition: {
+                                duration: 0.55,
+                                ease: [0.25, 0.1, 0.25, 1],
+                              },
+                            },
+                          }}
+                        >
+                          <span>{resultado.categoria}</span>
+
+                          <h3>{resultado.nome}</h3>
+
+                          <p>{resultado.descricao}</p>
+
+                          <button
+                            type="button"
+                            onClick={(event) => {
+                              event.stopPropagation()
+                              irParaTratamentos(resultado.categoria)
+                            }}
+                          >
+                            VER NOS TRATAMENTOS
+                            <b>→</b>
+                          </button>
+                        </motion.article>
+                      ))}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      className="procedimentos__sem-resultados"
+                      initial={{
+                        opacity: 0,
+                        y: 15,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                      }}
+                    >
+                      <strong>
+                        Não encontramos esse procedimento.
+                      </strong>
+
+                      <p>
+                        Tente outro termo ou converse com nossa assistente para
+                        buscar uma informação específica.
+                      </p>
+                    </motion.div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="procedimentos__assistente">
+            <div className="procedimentos__assistente-topo">
+              <div className="procedimentos__assistente-icone">
+                <span>✦</span>
+              </div>
+
+              <div className="procedimentos__assistente-conteudo">
+                <span className="procedimentos__assistente-eyebrow">
+                  ASSISTENTE ESPAÇO INNOVAR
+                </span>
+
+                <h3>
+                  Não encontrou o que procura? <em>Pergunte para nós.</em>
+                </h3>
+
+                <p>
+                  Tire dúvidas sobre nossos procedimentos. A assistente responde
+                  somente sobre os serviços e informações disponíveis da clínica.
+                </p>
+              </div>
+            </div>
+
             <div className="procedimentos__chat">
-              <label htmlFor="pergunta-assistente">
-                Escreva sua dúvida
-              </label>
-
-              <div className="procedimentos__chat-input">
-                <textarea
-                  id="pergunta-assistente"
+              <div className="procedimentos__chat-input-wrapper">
+                <input
+                  type="text"
                   value={pergunta}
                   onChange={alterarPergunta}
                   onKeyDown={pressionarEnter}
-                  placeholder="Ex.: Quais procedimentos vocês possuem para flacidez?"
-                  rows={4}
+                  placeholder="Ex.: tratamento para flacidez?"
+                  aria-label="Pergunte para a assistente"
+                  autoComplete="off"
+                  spellCheck={false}
+                  enterKeyHint="send"
+                  maxLength={500}
                 />
 
                 <button
@@ -325,37 +434,79 @@ function Procedimentos() {
                   </svg>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="procedimentos__chat-rodape">
-                <small>
-                  A resposta é informativa e não substitui uma avaliação
-                  profissional.
-                </small>
+      <AnimatePresence>
+        {modalIAAberto && (
+          <motion.div
+            className="procedimentos__ia-modal-overlay"
+            onClick={fecharModalIA}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <motion.div
+              className="procedimentos__ia-modal"
+              onClick={(event) => event.stopPropagation()}
+              initial={{
+                opacity: 0,
+                y: 40,
+                scale: 0.95,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                y: 25,
+                scale: 0.95,
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+            >
+              <button
+                type="button"
+                className="procedimentos__ia-modal-fechar"
+                onClick={fecharModalIA}
+                aria-label="Fechar Resposta"
+              >
+                <span />
+                <span />
+              </button>
 
-                {pergunta.trim() ? (
-                  <span>ENTER PARA ENVIAR</span>
-                ) : (
-                  <span>DIGITE SUA DÚVIDA</span>
-                )}
+              <div className="procedimentos__ia-modal-topo">
+                <div className="procedimentos__ia-modal-icone">
+                  ✦
+                </div>
+
+                <h4>Resposta da Assistente</h4>
               </div>
 
-              {erroIA && (
-                <div className="procedimentos__erro">
-                  {erroIA}
-                </div>
-              )}
+              <div className="procedimentos__ia-modal-conteudo">
+                <p>{resposta}</p>
+              </div>
 
-              {resposta && (
-                <div className="procedimentos__resposta">
-                  <span>ESPAÇO INNOVAR</span>
-                  <p>{resposta}</p>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
+              <div className="procedimentos__ia-modal-rodape">
+                <button
+                  type="button"
+                  onClick={fecharModalIA}
+                >
+                  NOVA PERGUNTA
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
