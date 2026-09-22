@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { ChangeEvent, KeyboardEvent } from 'react'
 import { tratamentos } from '../Tratamentos/Tratamentos'
-import './procedimentos.css'
+import './Procedimentos.css'
 
 const normalizar = (texto: string) =>
   texto
