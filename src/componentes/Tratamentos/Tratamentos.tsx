@@ -1,13 +1,13 @@
-import React, { useRef, useState, useMemo } from "react"
-import type { KeyboardEvent } from "react"
+import React, { useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import './Tratamentos.css'
 
-type Procedimento = {
+export type Procedimento = {
   nome: string
   descricao: string
 }
 
-type Tratamento = {
+export type Tratamento = {
   categoria: string
   titulo: string
   descricao: string
@@ -15,7 +15,7 @@ type Tratamento = {
   procedimentos: Procedimento[]
 }
 
-const tratamentos: Tratamento[] = [
+export const tratamentos: Tratamento[] = [
   {
     categoria: 'FACIAL',
     titulo: 'Cuidados faciais',
@@ -258,30 +258,21 @@ const tratamentos: Tratamento[] = [
   },
 ]
 
-const normalizarTexto = (texto: string) => {
-  return texto
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-}
-
 function Tratamentos() {
-  const [tratamentoSelecionado, setTratamentoSelecionado] = useState<Tratamento | null>(null)
+  const [tratamentoSelecionado, setTratamentoSelecionado] =
+    useState<Tratamento | null>(null)
+
   const faixaRef = useRef<HTMLDivElement>(null)
   const arrastando = useRef(false)
   const inicioX = useRef(0)
   const scrollInicial = useRef(0)
-  const [termoBusca, setTermoBusca] = useState('')
-  const [perguntaIA, setPerguntaIA] = useState('')
-  const [respostaIA, setRespostaIA] = useState('')
-  const [carregandoIA, setCarregandoIA] = useState(false)
-  const [erroIA, setErroIA] = useState('')
-  const [modalIAAberto, setModalIAAberto] = useState(false)
-  const ROTACOES_ARRAS_THRESHOLD = 5
+  const ROTACAO_ARRASTE_THRESHOLD = 5
 
   const navegar = (direcao: 'esquerda' | 'direita') => {
     if (!faixaRef.current) return
+
     const distancia = faixaRef.current.clientWidth * 0.75
+
     faixaRef.current.scrollBy({
       left: direcao === 'direita' ? distancia : -distancia,
       behavior: 'smooth',
@@ -290,6 +281,7 @@ function Tratamentos() {
 
   const iniciarArraste = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!faixaRef.current) return
+
     arrastando.current = false
     inicioX.current = event.clientX
     scrollInicial.current = faixaRef.current.scrollLeft
@@ -297,20 +289,24 @@ function Tratamentos() {
 
   const moverArraste = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!faixaRef.current || event.buttons !== 1) return
+
     const deltaX = event.clientX - inicioX.current
 
-    if (Math.abs(deltaX) > ROTACOES_ARRAS_THRESHOLD) {
+    if (Math.abs(deltaX) > ROTACAO_ARRASTE_THRESHOLD) {
       if (!arrastando.current) {
         arrastando.current = true
         faixaRef.current.classList.add('tratamentos__faixa--arrastando')
       }
+
       faixaRef.current.scrollLeft = scrollInicial.current - deltaX
     }
   }
 
   const finalizarArraste = () => {
     if (!faixaRef.current) return
+
     faixaRef.current.classList.remove('tratamentos__faixa--arrastando')
+
     setTimeout(() => {
       arrastando.current = false
     }, 50)
@@ -319,94 +315,28 @@ function Tratamentos() {
   const abrirTratamento = (tratamento: Tratamento) => {
     if (arrastando.current) return
     setTratamentoSelecionado(tratamento)
-    setTermoBusca('')
   }
 
   const fecharTratamento = () => {
     setTratamentoSelecionado(null)
   }
 
-  const resultadosPesquisa = useMemo(() => {
-    if (!termoBusca.trim()) return []
-
-    const termo = normalizarTexto(termoBusca)
-    const resultados: { procedimento: Procedimento; categoria: Tratamento }[] = []
-
-    tratamentos.forEach((cat) => {
-      cat.procedimentos.forEach((proc) => {
-        const nomeMatch = normalizarTexto(proc.nome).includes(termo)
-        const descMatch = normalizarTexto(proc.descricao).includes(termo)
-        const catMatch = normalizarTexto(cat.categoria).includes(termo)
-
-        if (nomeMatch || descMatch || catMatch) {
-          resultados.push({ procedimento: proc, categoria: cat })
-        }
-      })
-    })
-
-    return resultados
-  }, [termoBusca])
-
-  const enviarPerguntaIA = async () => {
-    if (!perguntaIA.trim() || carregandoIA) return
-
-    setCarregandoIA(true)
-    setErroIA('')
-    setRespostaIA('')
-
-    try {
-      const res = await fetch('/api/gemini', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          pergunta: perguntaIA,
-          baseDados: tratamentos, 
-        }),
-      })
-
-      const text = await res.text()
-      let data
-      
-      try {
-        data = JSON.parse(text)
-      } catch (err) {
-        throw new Error('Desculpe, ocorreu uma instabilidade temporária. Por favor, tente novamente.')
-      }
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Não foi possível completar sua consulta no momento.')
-      }
-
-      setRespostaIA(data.resposta)
-      setModalIAAberto(true)
-      setPerguntaIA('') 
-    } catch (error: any) {
-      setErroIA(error.message || 'Falha na conexão. Verifique sua internet e tente novamente.')
-      setModalIAAberto(true)
-    } finally {
-      setCarregandoIA(false)
-    }
-  }
-
-  const handleIAKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault() 
-      enviarPerguntaIA()
-    }
-  }
-
   return (
     <>
       <section id="tratamentos" className="tratamentos">
-        <div className="tratamentos__fundo"></div>
+        <div className="tratamentos__fundo" />
 
         <div className="container tratamentos__container">
           <div className="tratamentos__cabecalho">
-            <div className="tratamentos__cabecalho-texto">
+            <motion.div 
+              className="tratamentos__cabecalho-texto"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.8 }}
+              transition={{ duration: 0.6 }}
+            >
               <span className="tratamentos__eyebrow">
-                <i></i>
+                <i />
                 NOSSOS TRATAMENTOS
               </span>
 
@@ -419,9 +349,15 @@ function Tratamentos() {
                 uma avaliação criteriosa para desenhar o caminho ideal até o seu
                 resultado.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="tratamentos__navegacao">
+            <motion.div 
+              className="tratamentos__navegacao"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               <button
                 type="button"
                 className="tratamentos__nav-btn"
@@ -430,6 +366,7 @@ function Tratamentos() {
               >
                 ←
               </button>
+
               <button
                 type="button"
                 className="tratamentos__nav-btn"
@@ -438,10 +375,16 @@ function Tratamentos() {
               >
                 →
               </button>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="tratamentos__area">
+          <motion.div 
+            className="tratamentos__area"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             <div
               ref={faixaRef}
               className="tratamentos__faixa"
@@ -450,11 +393,15 @@ function Tratamentos() {
               onPointerUp={finalizarArraste}
               onPointerLeave={finalizarArraste}
             >
-              {tratamentos.map((tratamento) => (
-                <article
+              {tratamentos.map((tratamento, index) => (
+                <motion.article
                   key={tratamento.categoria}
                   className="tratamentos__card"
                   onClick={() => abrirTratamento(tratamento)}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <div className="tratamentos__imagem-wrapper">
                     <img
@@ -463,7 +410,9 @@ function Tratamentos() {
                       className="tratamentos__imagem"
                       draggable="false"
                     />
-                    <div className="tratamentos__imagem-overlay"></div>
+
+                    <div className="tratamentos__imagem-overlay" />
+
                     <span className="tratamentos__categoria">
                       {tratamento.categoria}
                     </span>
@@ -471,7 +420,9 @@ function Tratamentos() {
 
                   <div className="tratamentos__card-conteudo">
                     <h3>{tratamento.titulo}</h3>
-                    <div className="tratamentos__card-linha"></div>
+
+                    <div className="tratamentos__card-linha" />
+
                     <p
                       onPointerDown={(event) => event.stopPropagation()}
                       onMouseDown={(event) => event.stopPropagation()}
@@ -479,217 +430,96 @@ function Tratamentos() {
                     >
                       {tratamento.descricao}
                     </p>
+
                     <div className="tratamentos__card-final">
-                      <span>
-                        {tratamento.procedimentos.length} procedimentos
-                      </span>
+                      <span>{tratamento.procedimentos.length} procedimentos</span>
+
                       <span className="tratamentos__ver">
                         VER TODOS
                         <b>→</b>
                       </span>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
-          </div>
-          
-          <div className="pesquisa-inov">
-            <div className="pesquisa-inov__cabecalho">
-              <span className="tratamentos__eyebrow">
-                <i></i>
-                ENCONTRE UM PROCEDIMENTO
-              </span>
-            </div>
-            
-            <div className="pesquisa-inov__input-wrapper">
-              <span className="pesquisa-inov__icone">🔎</span>
-              <input
-                type="text"
-                className="pesquisa-inov__input"
-                placeholder="Procure por algum procedimento aqui!"
-                value={termoBusca}
-                onChange={(e) => setTermoBusca(e.target.value)}
-              />
-            </div>
-
-            {termoBusca.trim() !== '' && (
-              <div className="pesquisa-inov__resultados">
-                {resultadosPesquisa.length > 0 ? (
-                  <ul className="pesquisa-inov__lista">
-                    {resultadosPesquisa.map((resultado, idx) => (
-                      <li
-                        key={idx}
-                        className="pesquisa-inov__item"
-                        onClick={() => abrirTratamento(resultado.categoria)}
-                      >
-                        <div className="pesquisa-inov__item-conteudo">
-                          <h4>{resultado.procedimento.nome}</h4>
-                          <span className="pesquisa-inov__tag-categoria">
-                            {resultado.categoria.categoria}
-                          </span>
-                        </div>
-                        <p>{resultado.procedimento.descricao}</p>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <div className="pesquisa-inov__vazio">
-                    <p>Não encontramos esse procedimento em nossa lista base.</p>
-                    <span>Tente utilizar termos diferentes ou pergunte para nossa Assistente abaixo.</span>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-          
-          <div className="ia-inov">
-            <div className="ia-inov__cabecalho">
-              <span className="tratamentos__eyebrow">
-                <i></i>
-                ASSISTENTE INTELIGENTE INNOVAR
-              </span>
-              <h3 className="ia-inov__titulo">Tire suas dúvidas sobre nossos procedimentos</h3>
-            </div>
-
-            <div className="ia-inov__container">
-              {carregandoIA && (
-                <div className="ia-inov__carregando" style={{ marginBottom: '20px' }}>
-                  <div className="ia-inov__spinner"></div>
-                  Consultando especialistas virtuais...
-                </div>
-              )}
-              
-              <div className="ia-inov__input-group">
-                <textarea
-                  className="ia-inov__textarea"
-                  placeholder="Pergunte ao Assistente Innovar"
-                  value={perguntaIA}
-                  onChange={(e) => setPerguntaIA(e.target.value)}
-                  onKeyDown={handleIAKeyDown}
-                  rows={1}
-                  disabled={carregandoIA}
-                ></textarea>
-                
-                <button
-                  type="button"
-                  className="ia-inov__btn-enviar"
-                  onClick={enviarPerguntaIA}
-                  disabled={!perguntaIA.trim() || carregandoIA}
-                  aria-label="Enviar pergunta"
-                >
-                  {carregandoIA ? '...' : 'Enviar'}
-                </button>
-              </div>
-              <span className="ia-inov__dica">A inteligência artificial pode cometer erros. Para avaliações precisas, consulte nossa clínica.</span>
-            </div>
-          </div>
-
+          </motion.div>
         </div>
       </section>
 
-      {tratamentoSelecionado && (
-        <div
-          className="tratamentos__modal-overlay"
-          onClick={fecharTratamento}
-        >
-          <div
-            className="tratamentos__modal"
-            onClick={(event) => event.stopPropagation()}
+      <AnimatePresence>
+        {tratamentoSelecionado && (
+          <motion.div
+            className="tratamentos__modal-overlay"
+            onClick={fecharTratamento}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
           >
-            <button
-              type="button"
-              className="tratamentos__modal-fechar"
-              onClick={fecharTratamento}
-              aria-label="Fechar"
+            <motion.div
+              className="tratamentos__modal"
+              onClick={(event) => event.stopPropagation()}
+              initial={{ opacity: 0, y: 25, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <span></span>
-              <span></span>
-            </button>
+              <button
+                type="button"
+                className="tratamentos__modal-fechar"
+                onClick={fecharTratamento}
+                aria-label="Fechar"
+              >
+                <span />
+                <span />
+              </button>
 
-            <div className="tratamentos__modal-imagem">
-              <img
-                src={tratamentoSelecionado.imagem}
-                alt={tratamentoSelecionado.titulo}
-              />
-            </div>
+              <div className="tratamentos__modal-imagem">
+                <img
+                  src={tratamentoSelecionado.imagem}
+                  alt={tratamentoSelecionado.titulo}
+                />
+              </div>
 
-            <div className="tratamentos__modal-conteudo">
-              <span className="tratamentos__modal-categoria">
-                {tratamentoSelecionado.categoria}
-              </span>
+              <div className="tratamentos__modal-conteudo">
+                <span className="tratamentos__modal-categoria">
+                  {tratamentoSelecionado.categoria}
+                </span>
 
-              <h2>{tratamentoSelecionado.titulo}</h2>
+                <h2>{tratamentoSelecionado.titulo}</h2>
 
-              <div className="tratamentos__modal-linha"></div>
+                <div className="tratamentos__modal-linha" />
 
-              <p className="tratamentos__modal-descricao">
-                {tratamentoSelecionado.descricao}
-              </p>
+                <p className="tratamentos__modal-descricao">
+                  {tratamentoSelecionado.descricao}
+                </p>
 
-              <div className="tratamentos__procedimentos">
-                {tratamentoSelecionado.procedimentos.map((procedimento) => (
-                  <div
-                    key={procedimento.nome}
-                    className="tratamentos__procedimento"
-                  >
-                    <div className="tratamentos__procedimento-ponto"></div>
+                <div className="tratamentos__procedimentos">
+                  {tratamentoSelecionado.procedimentos.map((procedimento) => (
+                    <div
+                      key={procedimento.nome}
+                      className="tratamentos__procedimento"
+                    >
+                      <div className="tratamentos__procedimento-ponto" />
 
-                    <div>
-                      <h3>{procedimento.nome}</h3>
-                      <p>{procedimento.descricao}</p>
+                      <div>
+                        <h3>{procedimento.nome}</h3>
+                        <p>{procedimento.descricao}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="tratamentos__modal-observacao">
-                Os procedimentos são indicados após avaliação individualizada
-                e podem variar conforme as necessidades de cada pessoa.
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {modalIAAberto && (
-        <div
-          className="ia-inov__modal-overlay"
-          onClick={() => setModalIAAberto(false)}
-        >
-          <div
-            className="ia-inov__modal"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="ia-inov__modal-fechar"
-              onClick={() => setModalIAAberto(false)}
-              aria-label="Fechar"
-            >
-              <span></span>
-              <span></span>
-            </button>
-
-            <div className="ia-inov__modal-conteudo">
-              <div className="ia-inov__modal-cabecalho">
-                <span className="ia-inov__avatar">✨</span>
-                <h3>Resposta da Assistente</h3>
-              </div>
-              
-              {erroIA ? (
-                <div className="ia-inov__erro">
-                  ⚠️ {erroIA}
+                  ))}
                 </div>
-              ) : (
-                <div className="ia-inov__mensagem-texto">
-                  <p>{respostaIA}</p>
+
+                <div className="tratamentos__modal-observacao">
+                  Os procedimentos são indicados após avaliação individualizada
+                  e podem variar conforme as necessidades de cada pessoa.
                 </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
