@@ -1,14 +1,15 @@
 import { useMemo, useState } from 'react'
+import type { ChangeEvent, KeyboardEvent } from 'react'
 import { tratamentos } from '../Tratamentos/Tratamentos'
 import './procedimentos.css'
 
-const normalizar = (texto) =>
+const normalizar = (texto: string) =>
   texto
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
 
-const palavrasRelacionadas = {
+const palavrasRelacionadas: Record<string, string[]> = {
   rugas: ['botox', 'toxina botulinica'],
   linhas: ['botox', 'toxina botulinica'],
   hidratacao: ['skinbooster', 'limpeza de pele premium'],
@@ -59,7 +60,10 @@ function Procedimentos() {
     const termosExpandidos = new Set([termo])
 
     Object.entries(palavrasRelacionadas).forEach(([chave, valores]) => {
-      if (normalizar(chave).includes(termo) || termo.includes(normalizar(chave))) {
+      if (
+        normalizar(chave).includes(termo) ||
+        termo.includes(normalizar(chave))
+      ) {
         valores.forEach((valor) => termosExpandidos.add(normalizar(valor)))
       }
     })
@@ -71,7 +75,9 @@ function Procedimentos() {
             `${procedimento.nome} ${procedimento.descricao} ${tratamento.categoria} ${tratamento.titulo}`,
           )
 
-          return Array.from(termosExpandidos).some((item) => texto.includes(item))
+          return Array.from(termosExpandidos).some((item) =>
+            texto.includes(item),
+          )
         })
         .map((procedimento) => ({
           ...procedimento,
@@ -124,7 +130,7 @@ function Procedimentos() {
     }
   }
 
-  const pressionarEnter = (event) => {
+  const pressionarEnter = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault()
       enviarPergunta()
@@ -136,6 +142,14 @@ function Procedimentos() {
       behavior: 'smooth',
       block: 'start',
     })
+  }
+
+  const alterarPesquisa = (event: ChangeEvent<HTMLInputElement>) => {
+    setPesquisa(event.target.value)
+  }
+
+  const alterarPergunta = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setPergunta(event.target.value)
   }
 
   return (
@@ -176,7 +190,7 @@ function Procedimentos() {
             <input
               type="search"
               value={pesquisa}
-              onChange={(event) => setPesquisa(event.target.value)}
+              onChange={alterarPesquisa}
               placeholder="O que você procura?"
               aria-label="Pesquisar procedimento"
             />
@@ -274,7 +288,10 @@ function Procedimentos() {
               setErroIA('')
             }}
           >
-            {assistenteAberto ? 'FECHAR ASSISTENTE' : 'PERGUNTAR À ASSISTENTE'}
+            {assistenteAberto
+              ? 'FECHAR ASSISTENTE'
+              : 'PERGUNTAR À ASSISTENTE'}
+
             <span>→</span>
           </button>
 
@@ -288,7 +305,7 @@ function Procedimentos() {
                 <textarea
                   id="pergunta-assistente"
                   value={pergunta}
-                  onChange={(event) => setPergunta(event.target.value)}
+                  onChange={alterarPergunta}
                   onKeyDown={pressionarEnter}
                   placeholder="Ex.: Quais procedimentos vocês possuem para flacidez?"
                   rows={4}
@@ -301,6 +318,7 @@ function Procedimentos() {
                   disabled={!pergunta.trim() || carregandoIA}
                 >
                   {carregandoIA ? 'CONSULTANDO...' : 'ENVIAR'}
+
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M4 12L20 4L16 20L10.5 13.5L4 12Z" />
                     <path d="M10.5 13.5L20 4" />
