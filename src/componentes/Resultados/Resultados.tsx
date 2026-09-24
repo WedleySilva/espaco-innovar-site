@@ -1,79 +1,325 @@
-import './Resultados.css'
+import { useState } from "react";
+import { AnimatePresence, motion, type Easing } from "framer-motion";
+import "./Resultados.css";
 
 type Resultado = {
-  imagem: string
-  titulo: string
-  classe: string
-}
+  imagem: string;
+  categoria: string;
+  titulo: string;
+  descricao: string;
+  procedimentos: string[];
+};
 
 const resultados: Resultado[] = [
   {
     imagem:
-      'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1400&q=85',
-    titulo: 'REJUVENESCIMENTO FACIAL',
-    classe: 'resultados__item--principal',
+      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1400&q=85",
+    categoria: "FACIAL",
+    titulo: "Cuidados faciais",
+    descricao:
+      "Protocolos personalizados para rejuvenescimento, hidratação, harmonia e renovação da pele.",
+    procedimentos: [
+      "Toxina botulínica",
+      "Preenchimentos facial e labial",
+      "Skinbooster",
+      "Bioestimulador de colágeno",
+      "Fios de PDO",
+      "Microagulhamento",
+      "Limpeza de pele",
+      "Peelings",
+    ],
   },
   {
     imagem:
-      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85',
-    titulo: 'TECNOLOGIA AVANÇADA',
-    classe: 'resultados__item--tecnologia',
+      "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=1100&q=85",
+    categoria: "CORPORAL",
+    titulo: "Protocolos corporais",
+    descricao:
+      "Tratamentos personalizados voltados ao contorno corporal, celulite, estrias, circulação e cuidados com a pele.",
+    procedimentos: [
+      "Subcisão de celulites",
+      "Tratamento para estrias",
+      "Massagem modeladora",
+      "Drenagem linfática",
+      "Manta térmica detox",
+      "Redução de medidas",
+    ],
   },
   {
     imagem:
-      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=900&q=85',
-    titulo: 'MASSOTERAPIA',
-    classe: 'resultados__item--massoterapia',
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1100&q=85",
+    categoria: "BEM-ESTAR",
+    titulo: "Massoterapia",
+    descricao:
+      "Momentos de cuidado voltados ao relaxamento, alívio de tensões, circulação e sensação de bem-estar.",
+    procedimentos: [
+      "Massagem relaxante",
+      "Massagem terapêutica",
+      "Ventosaterapia",
+      "Drenagem linfática",
+      "Massagem modeladora",
+    ],
   },
   {
     imagem:
-      'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=1100&q=85',
-    titulo: 'ESTÉTICA CORPORAL',
-    classe: 'resultados__item--corporal',
+      "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1100&q=85",
+    categoria: "SUPLEMENTAÇÕES",
+    titulo: "Suplementações injetáveis",
+    descricao:
+      "Protocolos individualizados definidos conforme avaliação profissional, objetivos e necessidades de cada pessoa.",
+    procedimentos: [
+      "Acelerador metabólico",
+      "Ganho de massa magra",
+      "Auxílio no emagrecimento",
+      "Complexo B",
+      "Aminoácidos",
+      "Curcumina",
+      "Zinco",
+      "Ativos para flacidez",
+    ],
   },
-]
+  {
+    imagem:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=85",
+    categoria: "ESTÉTICA AVANÇADA",
+    titulo: "Tecnologia e procedimentos",
+    descricao:
+      "Tecnologias e procedimentos especializados que complementam protocolos faciais e corporais personalizados.",
+    procedimentos: [
+      "Depilação a laser de diodo",
+      "Radiofrequência",
+      "Ultrassom",
+      "Laser",
+      "Criofrequência",
+      "PEIM — aplicação de microvasos",
+      "Jato de plasma",
+    ],
+  },
+];
 
-function Resultados() {
-  return (
-    <section id="resultados" className="resultados">
-      <div className="resultados__fundo"></div>
+const ease: Easing = [0.22, 1, 0.36, 1];
 
-      <div className="container resultados__container">
-        <div className="resultados__cabecalho">
-          <span className="resultados__eyebrow">
-            <i></i>
-            RESULTADOS & PROCEDIMENTOS
-          </span>
+const revealUp = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease,
+    },
+  },
+};
 
-          <h2 className="resultados__titulo">
-            Uma estética de{' '}
-            <em>acabamento natural</em>
-          </h2>
-        </div>
+const revealHeader = {
+  hidden: {
+    opacity: 0,
+    y: 25,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease,
+    },
+  },
+};
 
-        <div className="resultados__galeria">
-          {resultados.map((resultado) => (
-            <article
-              key={resultado.titulo}
-              className={`resultados__item ${resultado.classe}`}
-            >
-              <img
-                src={resultado.imagem}
-                alt={resultado.titulo}
-                className="resultados__imagem"
-              />
-
-              <div className="resultados__overlay"></div>
-
-              <span className="resultados__label">
-                {resultado.titulo}
-              </span>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+function irParaContato() {
+  document.getElementById("contato")?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
 }
 
-export default Resultados
+function Resultados() {
+  const [selecionado, setSelecionado] = useState(0);
+
+  const resultadoPrincipal = resultados[selecionado];
+  const resultadosSecundarios = resultados.filter(
+    (_, index) => index !== selecionado,
+  );
+
+  return (
+    <section id="resultados" className="resultados">
+      <div className="resultados__fundo" />
+
+      <div className="container resultados__container">
+        <motion.header
+          className="resultados__cabecalho"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={revealHeader}
+        >
+          <div className="resultados__eyebrow">
+            <i />
+            RESULTADOS & PROCEDIMENTOS
+          </div>
+
+          <div className="resultados__cabecalho-conteudo">
+            <h2 className="resultados__titulo">
+              Cuidado pensado para
+              <em> cada detalhe.</em>
+            </h2>
+
+            <p className="resultados__introducao">
+              Da estética facial ao bem-estar, cada protocolo começa com uma
+              avaliação individualizada para entender suas necessidades e
+              objetivos.
+            </p>
+          </div>
+
+          <div className="resultados__linha" />
+        </motion.header>
+
+        <motion.div
+          className="resultados__explorador"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+        >
+          <motion.div className="resultados__principal" variants={revealUp}>
+            <AnimatePresence mode="wait">
+              <motion.article
+                key={resultadoPrincipal.titulo}
+                className="resultados__principal-card"
+                initial={{ opacity: 0, scale: 0.985 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.985 }}
+                transition={{ duration: 0.5, ease }}
+              >
+                <img
+                  src={resultadoPrincipal.imagem}
+                  alt={resultadoPrincipal.titulo}
+                  className="resultados__principal-imagem"
+                />
+
+                <div className="resultados__principal-overlay" />
+
+                <div className="resultados__principal-conteudo">
+                  <div className="resultados__principal-topo">
+                    <span>{resultadoPrincipal.categoria}</span>
+
+                    <span className="resultados__principal-numero">
+                      {String(selecionado + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  <div className="resultados__principal-info">
+                    <h3>{resultadoPrincipal.titulo}</h3>
+
+                    <p>{resultadoPrincipal.descricao}</p>
+
+                    <div className="resultados__procedimentos-preview">
+                      {resultadoPrincipal.procedimentos
+                        .slice(0, 4)
+                        .map((procedimento) => (
+                          <span key={procedimento}>{procedimento}</span>
+                        ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      className="resultados__acao"
+                      onClick={irParaContato}
+                    >
+                      <span>Agendar avaliação</span>
+                      <span className="resultados__acao-icone">↗</span>
+                    </button>
+                  </div>
+                </div>
+              </motion.article>
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.div className="resultados__lista" variants={revealUp}>
+            {resultadosSecundarios.map((resultado) => {
+              const index = resultados.findIndex(
+                (item) => item.titulo === resultado.titulo,
+              );
+
+              return (
+                <motion.button
+                  key={resultado.titulo}
+                  type="button"
+                  className="resultados__opcao"
+                  onMouseEnter={() => setSelecionado(index)}
+                  onFocus={() => setSelecionado(index)}
+                  onClick={() => {
+                    setSelecionado(index);
+                  }}
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.35, ease }}
+                >
+                  <div className="resultados__opcao-imagem">
+                    <img src={resultado.imagem} alt="" />
+                    <span />
+                  </div>
+
+                  <div className="resultados__opcao-conteudo">
+                    <span className="resultados__opcao-categoria">
+                      {resultado.categoria}
+                    </span>
+
+                    <strong>{resultado.titulo}</strong>
+
+                    <span className="resultados__opcao-quantidade">
+                      {resultado.procedimentos.length} procedimentos
+                    </span>
+
+                    <span className="resultados__opcao-seta">↗</span>
+                  </div>
+                </motion.button>
+              );
+            })}
+
+            <motion.button
+              type="button"
+              className="resultados__contato"
+              onClick={irParaContato}
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.35, ease }}
+            >
+              <span className="resultados__contato-numero">05</span>
+
+              <span className="resultados__contato-texto">
+                Não sabe qual tratamento escolher?
+                <strong>Fale com a nossa equipe.</strong>
+              </span>
+
+              <span className="resultados__contato-seta">↗</span>
+            </motion.button>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="resultados__rodape"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={revealUp}
+        >
+          <p>
+            Seu cuidado começa com uma conversa e uma avaliação pensada para
+            você.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export default Resultados;
