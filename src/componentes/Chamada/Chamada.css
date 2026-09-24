@@ -1,27 +1,34 @@
 .chamada {
   position: relative;
   min-height: 450px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 70px 20px;
-
+  padding: 82px 20px;
   overflow: hidden;
-
+  isolation: isolate;
   background:
     radial-gradient(
       circle at 50% 45%,
-      color-mix(in oklab, var(--teal) 18%, transparent),
-      transparent 55%
+      rgba(255, 255, 255, 0.08),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 12% 15%,
+      rgba(190, 164, 105, 0.1),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 88% 85%,
+      rgba(190, 164, 105, 0.08),
+      transparent 30%
     ),
     linear-gradient(
       120deg,
-      #16b0ab,
-      color-mix(in oklab, #16b0ab 72%, black)
+      #16b0ab 0%,
+      #119b98 48%,
+      #087f80 100%
     );
-
   color: #ffffff;
 }
 
@@ -29,64 +36,157 @@
   content: '';
   position: absolute;
   inset: 0;
-
+  z-index: -2;
   background:
     linear-gradient(
       90deg,
-      transparent,
-      rgba(255, 255, 255, 0.035),
-      transparent
+      transparent 0%,
+      rgba(255, 255, 255, 0.035) 50%,
+      transparent 100%
     );
-
   pointer-events: none;
+}
+
+.chamada::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    );
+  background-size: 90px 90px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 25%,
+    black 75%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.chamada__luz {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(2px);
+  will-change: transform;
+}
+
+.chamada__luz--principal {
+  top: -190px;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1),
+    transparent 68%
+  );
+  animation: chamadaLuzPrincipal 8s ease-in-out infinite;
+}
+
+.chamada__luz--secundaria {
+  right: -180px;
+  bottom: -220px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(
+    circle,
+    rgba(190, 164, 105, 0.13),
+    transparent 68%
+  );
+  animation: chamadaLuzSecundaria 10s ease-in-out infinite;
+}
+
+.chamada__textura {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background:
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(0, 40, 42, 0.16),
+      transparent 45%
+    );
+}
+
+.chamada__linha {
+  position: absolute;
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(190, 164, 105, 0.22) 25%,
+    rgba(190, 164, 105, 0.22) 75%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.chamada__linha--esquerda {
+  left: 7%;
+}
+
+.chamada__linha--direita {
+  right: 7%;
 }
 
 .chamada__conteudo {
   position: relative;
-  z-index: 1;
-
+  z-index: 2;
   width: min(760px, 100%);
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
   text-align: center;
 }
 
 .chamada__eyebrow {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
-
-  margin-bottom: 28px;
-
-  color: rgba(255, 255, 255, 0.88);
-
+  margin-bottom: 27px;
+  color: rgba(255, 255, 255, 0.86);
   font-family: 'Jost', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 400;
   letter-spacing: 0.3em;
 }
 
 .chamada__eyebrow i {
+  display: block;
   width: 32px;
   height: 1px;
-
   background: var(--gold-light);
+  transform-origin: center;
 }
 
 .chamada__titulo {
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  margin: 0;
   color: #ffffff;
-
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(3.1rem, 5vw, 4.6rem);
   font-weight: 300;
   line-height: 0.95;
+  letter-spacing: -0.025em;
 }
 
 .chamada__titulo span {
@@ -95,117 +195,236 @@
 }
 
 .chamada__titulo span:last-child {
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .chamada__titulo em {
+  position: relative;
   color: var(--gold-light);
   font-style: italic;
   font-weight: 300;
 }
 
+.chamada__titulo em::after {
+  content: '';
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: -4px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(226, 205, 157, 0.7),
+    transparent
+  );
+  transform: scaleX(0.7);
+  transform-origin: center;
+  transition: transform 0.5s ease;
+}
+
+.chamada:hover .chamada__titulo em::after {
+  transform: scaleX(1);
+}
+
 .chamada__descricao {
   width: min(650px, 100%);
-
-  margin-top: 28px;
-
-  color: rgba(255, 255, 255, 0.84);
-
+  margin: 28px 0 0;
+  color: rgba(255, 255, 255, 0.82);
   font-family: 'Jost', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 300;
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
 .chamada__acoes {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-
+  gap: 14px;
   margin-top: 38px;
 }
 
 .chamada__botao {
+  position: relative;
   min-height: 54px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-
-  padding: 0 32px;
-
+  gap: 15px;
+  padding: 0 29px;
+  overflow: hidden;
   border-radius: 999px;
-
   font-family: 'Jost', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 400;
-  letter-spacing: 0.19em;
+  letter-spacing: 0.18em;
+  text-decoration: none;
   white-space: nowrap;
-
   transition:
-    transform 0.25s ease,
-    background-color 0.25s ease,
-    border-color 0.25s ease;
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-.chamada__botao:hover {
-  transform: translateY(-2px);
+.chamada__botao::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+
+.chamada__botao:hover::before {
+  left: 140%;
 }
 
 .chamada__botao--principal {
+  border: 1px solid rgba(226, 205, 157, 0.9);
   background: #ffffff;
-
-  border: 1px solid var(--gold-light);
-
   color: var(--teal-deep);
-
   cursor: pointer;
+  box-shadow:
+    0 12px 30px -18px rgba(0, 0, 0, 0.5),
+    0 0 0 0 rgba(226, 205, 157, 0);
 }
 
-.chamada__botao--principal span {
-  color: var(--gold);
-  font-size: 1rem;
+.chamada__botao--principal:hover {
+  background: #fffdfa;
+  border-color: var(--gold-light);
+  box-shadow:
+    0 18px 35px -18px rgba(0, 0, 0, 0.55),
+    0 0 0 5px rgba(226, 205, 157, 0.08);
 }
 
 .chamada__botao--secundario {
   min-width: 180px;
-
-  border: 1px solid
-    color-mix(in oklab, var(--gold-light) 55%, transparent);
-
-  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 205, 157, 0.5);
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
 }
 
 .chamada__botao--secundario:hover {
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(226, 205, 157, 0.95);
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  box-shadow: 0 15px 30px -22px rgba(0, 0, 0, 0.45);
+}
 
-  border-color: var(--gold-light);
+.chamada__botao-texto,
+.chamada__botao > span:first-child {
+  position: relative;
+  z-index: 1;
+}
+
+.chamada__botao-icone {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1rem;
+  line-height: 1;
+  transition:
+    transform 0.35s ease,
+    color 0.35s ease;
+}
+
+.chamada__botao:hover .chamada__botao-icone {
+  transform: translate(3px, -3px);
+}
+
+.chamada__botao--principal .chamada__botao-icone {
+  color: var(--teal);
+}
+
+@keyframes chamadaLuzPrincipal {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(25px) scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes chamadaLuzSecundaria {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translate(-30px, -20px) scale(1.08);
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chamada__luz--principal,
+  .chamada__luz--secundaria {
+    animation: none;
+  }
+
+  .chamada__botao,
+  .chamada__botao::before,
+  .chamada__botao-icone,
+  .chamada__titulo em::after {
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {
   .chamada {
     min-height: 420px;
-    padding: 65px 7.5%;
+    padding: 70px 7.5%;
   }
 
   .chamada__titulo {
     font-size: clamp(3rem, 7vw, 4rem);
   }
+
+  .chamada__linha--esquerda {
+    left: 4%;
+  }
+
+  .chamada__linha--direita {
+    right: 4%;
+  }
 }
 
 @media (max-width: 600px) {
   .chamada {
-    min-height: 480px;
-    padding: 65px 5%;
+    min-height: 500px;
+    padding: 68px 5%;
   }
 
   .chamada__eyebrow {
+    gap: 9px;
     margin-bottom: 23px;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+  }
 
-    font-size: 0.58rem;
-    letter-spacing: 0.22em;
+  .chamada__eyebrow i {
+    width: 23px;
   }
 
   .chamada__titulo {
@@ -213,29 +432,61 @@
     line-height: 0.98;
   }
 
-  .chamada__descricao {
-    margin-top: 24px;
+  .chamada__titulo span {
+    white-space: normal;
+  }
 
-    font-size: 0.82rem;
-    line-height: 1.75;
+  .chamada__descricao {
+    margin-top: 25px;
+    font-size: 0.8rem;
+    line-height: 1.8;
   }
 
   .chamada__acoes {
     width: 100%;
-
     flex-direction: column;
-
+    gap: 11px;
     margin-top: 32px;
   }
 
   .chamada__botao {
-    width: min(300px, 100%);
-    min-height: 52px;
-
-    padding: 0 24px;
+    width: min(310px, 100%);
+    min-height: 53px;
+    padding: 0 23px;
   }
 
   .chamada__botao--secundario {
     min-width: 0;
+  }
+
+  .chamada__linha {
+    opacity: 0.55;
+  }
+
+  .chamada__linha--esquerda {
+    left: 3%;
+  }
+
+  .chamada__linha--direita {
+    right: 3%;
+  }
+}
+
+@media (max-width: 380px) {
+  .chamada {
+    padding: 60px 5%;
+  }
+
+  .chamada__titulo {
+    font-size: 2.7rem;
+  }
+
+  .chamada__descricao {
+    font-size: 0.76rem;
+  }
+
+  .chamada__botao {
+    font-size: 0.59rem;
+    letter-spacing: 0.15em;
   }
 }
