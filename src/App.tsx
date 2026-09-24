@@ -1,4 +1,4 @@
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react'
 import Cabecalho from './componentes/Cabecalho/Cabecalho'
 import Inicio from './componentes/Inicio/Inicio'
 import Tratamentos from './componentes/Tratamentos/Tratamentos'
@@ -11,7 +11,6 @@ import Comentarios from './componentes/Comentarios/Comentarios'
 import Chamada from './componentes/Chamada/Chamada'
 import Contato from './componentes/Contato/Contato'
 import Rodape from './componentes/Rodape/Rodape'
-
 
 function App() {
   return (
@@ -30,7 +29,7 @@ function App() {
         <Contato />
       </main>
       <Rodape />
-       <Analytics />
+      <Analytics />
     </>
   )
 }
