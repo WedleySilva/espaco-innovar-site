@@ -1,4 +1,65 @@
+import { motion, type Easing } from 'framer-motion'
 import './Contato.css'
+
+const ease: Easing = [0.22, 1, 0.36, 1]
+
+const containerVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const revealUp = {
+  hidden: {
+    opacity: 0,
+    y: 25,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease,
+    },
+  },
+}
+
+const revealLeft = {
+  hidden: {
+    opacity: 0,
+    x: -30,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease,
+    },
+  },
+}
+
+const revealRight = {
+  hidden: {
+    opacity: 0,
+    x: 30,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease,
+    },
+  },
+}
 
 function Contato() {
   const whatsapp = () => {
@@ -12,24 +73,46 @@ function Contato() {
     <section id="contato" className="contato">
       <div className="contato__fundo"></div>
 
-      <div className="container contato__container">
-        <header className="contato__cabecalho">
+      <motion.div
+        className="container contato__container"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.18 }}
+      >
+        <motion.header
+          className="contato__cabecalho"
+          variants={revealUp}
+        >
           <span className="contato__eyebrow">
-            <i></i>
+            <i />
             CONTATO
           </span>
 
           <h2 className="contato__titulo">
             Estamos em <em>Garuva</em>, Santa Catarina
           </h2>
-        </header>
+        </motion.header>
 
         <div className="contato__grid">
-          <div className="contato__links">
-            <button
+          <motion.div
+            className="contato__links"
+            variants={revealLeft}
+          >
+            <motion.button
               type="button"
               className="contato__card"
               onClick={whatsapp}
+              whileHover={{
+                y: -5,
+              }}
+              whileTap={{
+                scale: 0.985,
+              }}
+              transition={{
+                duration: 0.3,
+                ease,
+              }}
             >
               <div>
                 <span className="contato__card-label">
@@ -42,15 +125,25 @@ function Contato() {
               </div>
 
               <span className="contato__seta">
-                →
+                ↗
               </span>
-            </button>
+            </motion.button>
 
-            <a
+            <motion.a
               href="https://www.facebook.com/espacoinnovarangela/?locale=pt_BR"
               target="_blank"
               rel="noreferrer"
               className="contato__card"
+              whileHover={{
+                y: -5,
+              }}
+              whileTap={{
+                scale: 0.985,
+              }}
+              transition={{
+                duration: 0.3,
+                ease,
+              }}
             >
               <div>
                 <span className="contato__card-label">
@@ -58,20 +151,30 @@ function Contato() {
                 </span>
 
                 <strong>
-                  Espaço Innovar
+                  Clínica Innovar
                 </strong>
               </div>
 
               <span className="contato__seta">
-                →
+                ↗
               </span>
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
               href="https://www.instagram.com/clinica_innovar/"
               target="_blank"
               rel="noreferrer"
               className="contato__card"
+              whileHover={{
+                y: -5,
+              }}
+              whileTap={{
+                scale: 0.985,
+              }}
+              transition={{
+                duration: 0.3,
+                ease,
+              }}
             >
               <div>
                 <span className="contato__card-label">
@@ -79,17 +182,20 @@ function Contato() {
                 </span>
 
                 <strong>
-                  @espacoinnovar
+                  @clinica_innovar
                 </strong>
               </div>
 
               <span className="contato__seta">
-                →
+                ↗
               </span>
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
-          <div className="contato__informacoes">
+          <motion.div
+            className="contato__informacoes"
+            variants={revealRight}
+          >
             <div className="contato__bloco">
               <h3>Endereço</h3>
 
@@ -129,17 +235,33 @@ function Contato() {
               </div>
             </div>
 
-            <button
+            <motion.button
               type="button"
               className="contato__botao"
               onClick={whatsapp}
+              whileHover={{
+                y: -4,
+                scale: 1.015,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
+              transition={{
+                duration: 0.3,
+                ease,
+              }}
             >
-              AGENDAR AVALIAÇÃO
-              <span>→</span>
-            </button>
-          </div>
+              <span className="contato__botao-texto">
+                AGENDAR AVALIAÇÃO
+              </span>
+
+              <span className="contato__botao-icone">
+                ↗
+              </span>
+            </motion.button>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }
