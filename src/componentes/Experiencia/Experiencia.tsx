@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion'
+import { motion, type Easing } from 'framer-motion'
 import './Experiencia.css'
+
+const ease: Easing = [0.22, 1, 0.36, 1]
 
 const revealHeader = {
   hidden: {
@@ -11,7 +13,7 @@ const revealHeader = {
     y: 0,
     transition: {
       duration: 0.75,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   },
 }
@@ -26,7 +28,7 @@ const revealLeft = {
     x: 0,
     transition: {
       duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   },
 }
@@ -41,7 +43,7 @@ const revealRight = {
     x: 0,
     transition: {
       duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   },
 }

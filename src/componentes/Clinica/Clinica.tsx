@@ -1,7 +1,9 @@
-import { motion } from 'framer-motion'
+import { motion, type Easing, type Variants } from 'framer-motion'
 import './Clinica.css'
 
-const revealLeft = {
+const ease: Easing = [0.22, 1, 0.36, 1]
+
+const revealLeft: Variants = {
   hidden: {
     opacity: 0,
     x: -45,
@@ -11,12 +13,12 @@ const revealLeft = {
     x: 0,
     transition: {
       duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   },
 }
 
-const revealRight = {
+const revealRight: Variants = {
   hidden: {
     opacity: 0,
     x: 45,
@@ -26,12 +28,12 @@ const revealRight = {
     x: 0,
     transition: {
       duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   },
 }
 
-const revealUp = {
+const revealUp: Variants = {
   hidden: {
     opacity: 0,
     y: 35,
@@ -41,11 +43,10 @@ const revealUp = {
     y: 0,
     transition: {
       duration: 0.75,
-      ease: [0.22, 1, 0.36, 1],
+      ease,
     },
   },
 }
-
 function Clinica() {
   return (
     <section id="clinica" className="clinica">
@@ -67,7 +68,7 @@ function Clinica() {
             transition={{
               duration: 0.9,
               delay: 0.1,
-              ease: [0.22, 1, 0.36, 1],
+              ease,
             }}
           />
 
@@ -79,7 +80,7 @@ function Clinica() {
             transition={{
               duration: 0.9,
               delay: 0.18,
-              ease: [0.22, 1, 0.36, 1],
+              ease,
             }}
           >
             <img
