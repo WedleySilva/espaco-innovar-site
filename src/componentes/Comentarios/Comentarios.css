@@ -1,25 +1,16 @@
 .comentarios {
   position: relative;
   overflow: hidden;
-  padding: 110px 0 120px;
-  background: var(--background);
+  padding: 72px 0 115px;
+  background: #fdfcf9;
 }
 
 .comentarios__fundo {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(
-      180deg,
-      rgba(253, 252, 248, 0.9) 0%,
-      rgba(255, 255, 255, 0.8) 50%,
-      rgba(253, 252, 248, 0.9) 100%
-    ),
-    url('https://res.cloudinary.com/drasiz1tf/image/upload/v1788715197/espa%C3%A7o-innovar/background/marmore-fundo.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   pointer-events: none;
+  background: transparent;
 }
 
 .comentarios__container {
@@ -32,42 +23,57 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 58px;
 }
 
 .comentarios__eyebrow {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 25px;
-  color: color-mix(in oklab, var(--teal) 70%, transparent);
+  gap: 14px;
+  margin-bottom: 22px;
+  color: color-mix(in oklab, var(--teal) 68%, transparent);
   font-family: 'Jost', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 400;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.28em;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .comentarios__eyebrow i {
   display: block;
-  width: 35px;
+  width: 34px;
   height: 1px;
-  background: color-mix(in oklab, var(--teal) 30%, transparent);
+  background: color-mix(in oklab, var(--gold) 48%, transparent);
+  transform-origin: center;
 }
 
 .comentarios__titulo {
+  position: relative;
+  max-width: 900px;
+  margin: 0;
+  color: var(--teal-deep, #1a5c5a);
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+  font-size: clamp(3rem, 5vw, 4.8rem);
   font-weight: 300;
-  line-height: 1.1;
-  color: var(--teal-deep, #1a5c5a); /* Ajuste se sua variável principal for diferente */
+  line-height: 0.98;
+  letter-spacing: -0.025em;
 }
 
 .comentarios__titulo em {
   color: var(--gold);
   font-style: italic;
   font-weight: 300;
+}
+
+.comentarios__titulo::after {
+  content: '';
+  display: block;
+  width: 42px;
+  height: 1px;
+  margin: 23px auto 0;
+  background: color-mix(in oklab, var(--gold) 55%, transparent);
 }
 
 .comentarios__area {
@@ -77,119 +83,318 @@
 
 .comentarios__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
 .comentarios__card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  border: 1px solid color-mix(in oklab, var(--gold) 25%, transparent);
-  border-radius: 1.25rem;
-  padding: 45px 35px 35px;
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.04);
-  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
-    box-shadow 0.4s ease, border-color 0.4s ease;
-  cursor: default;
+  min-height: 330px;
+  overflow: hidden;
+  padding: 35px 31px 30px;
+  border: 1px solid rgba(190, 164, 105, 0.2);
+  border-radius: 1.3rem;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 18px 45px -30px rgba(15, 67, 68, 0.28),
+    0 2px 8px rgba(15, 67, 68, 0.025);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    background 0.45s ease;
+}
+
+.comentarios__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--gold),
+    rgba(190, 164, 105, 0.08)
+  );
+  transform-origin: left center;
+  transition:
+    width 0.45s ease,
+    opacity 0.45s ease;
+}
+
+.comentarios__card::after {
+  content: '“';
+  position: absolute;
+  top: 15px;
+  right: 27px;
+  color: rgba(190, 164, 105, 0.12);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5.8rem;
+  font-weight: 300;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .comentarios__card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 45px -15px rgba(0, 0, 0, 0.08);
-  border-color: color-mix(in oklab, var(--gold) 60%, transparent);
+  border-color: rgba(190, 164, 105, 0.42);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 28px 55px -32px rgba(15, 67, 68, 0.38),
+    0 8px 18px rgba(15, 67, 68, 0.035);
+}
+
+.comentarios__card:hover::before {
+  width: 78px;
 }
 
 .comentarios__estrelas {
+  position: relative;
+  z-index: 1;
   display: flex;
+  align-items: center;
   gap: 4px;
+  min-height: 17px;
+  margin-bottom: 24px;
   color: var(--gold);
-  font-size: 0.8rem;
-  margin-bottom: 25px;
+  font-family: Arial, sans-serif;
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.comentarios__estrela {
+  display: inline-block;
+  transform-origin: center;
 }
 
 .comentarios__texto {
+  position: relative;
+  z-index: 1;
   margin: 0;
-  color: color-mix(in oklab, var(--teal) 90%, black); /* Um tom de teal legível */
+  color: color-mix(in oklab, var(--teal) 88%, black);
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
+  font-size: 1.34rem;
   font-weight: 400;
   font-style: italic;
-  line-height: 1.6;
-  flex-grow: 1; /* Empurra o rodapé para baixo se o texto for curto */
+  line-height: 1.52;
+  letter-spacing: -0.005em;
+  flex-grow: 1;
 }
 
 .comentarios__divisor {
   width: 100%;
   height: 1px;
-  border: none;
-  background: color-mix(in oklab, var(--gold) 25%, transparent);
-  margin: 35px 0 20px;
+  margin: 27px 0 18px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(190, 164, 105, 0.35),
+    rgba(190, 164, 105, 0.08),
+    transparent
+  );
 }
 
 .comentarios__autor-box {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .comentarios__nome {
-  color: color-mix(in oklab, var(--teal) 90%, black);
+  color: color-mix(in oklab, var(--teal-deep) 92%, black);
   font-family: 'Jost', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
   text-transform: uppercase;
 }
 
 .comentarios__info {
-  color: color-mix(in oklab, var(--text) 50%, gray);
+  color: rgba(20, 64, 65, 0.46);
   font-family: 'Jost', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.comentarios__card-indice {
+  position: absolute;
+  right: 28px;
+  bottom: 27px;
+  color: rgba(190, 164, 105, 0.38);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.92rem;
   font-weight: 300;
 }
 
-/* Responsividade */
 @media (max-width: 1024px) {
+  .comentarios {
+    padding: 68px 0 105px;
+  }
+
+  .comentarios__cabecalho {
+    margin-bottom: 50px;
+  }
+
   .comentarios__grid {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 820px;
+    gap: 18px;
+  }
+
+  .comentarios__card {
+    min-height: 315px;
+  }
+
+  .comentarios__card:last-child {
+    grid-column: 1 / 3;
+    max-width: calc(50% - 9px);
+    width: 100%;
+    justify-self: center;
   }
 }
 
 @media (max-width: 768px) {
   .comentarios {
-    padding: 85px 0 95px;
+    padding: 65px 0 90px;
   }
+
   .comentarios__cabecalho {
     margin-bottom: 40px;
   }
+
+  .comentarios__eyebrow {
+    gap: 10px;
+    margin-bottom: 19px;
+    font-size: 0.56rem;
+    letter-spacing: 0.22em;
+  }
+
+  .comentarios__eyebrow i {
+    width: 25px;
+  }
+
+  .comentarios__titulo {
+    max-width: 560px;
+    font-size: clamp(2.75rem, 9vw, 4rem);
+    line-height: 1;
+  }
+
+  .comentarios__titulo::after {
+    margin-top: 19px;
+  }
+
   .comentarios__grid {
     grid-template-columns: 1fr;
-    max-width: 450px;
+    max-width: 470px;
+    gap: 14px;
   }
-  .comentarios__card {
-    padding: 35px 30px 30px;
+
+  .comentarios__card,
+  .comentarios__card:last-child {
+    grid-column: auto;
+    max-width: none;
+    min-height: 290px;
+    padding: 31px 27px 27px;
   }
+
+  .comentarios__card::after {
+    right: 21px;
+    font-size: 5rem;
+  }
+
+  .comentarios__card::before {
+    left: 27px;
+  }
+
   .comentarios__texto {
-    font-size: 1.25rem;
+    font-size: 1.28rem;
+    line-height: 1.55;
+  }
+
+  .comentarios__divisor {
+    margin-top: 24px;
   }
 }
 
 @media (max-width: 480px) {
   .comentarios {
-    padding: 75px 0 85px;
+    padding: 57px 0 78px;
   }
+
+  .comentarios__cabecalho {
+    margin-bottom: 34px;
+  }
+
   .comentarios__titulo {
-    font-size: 2.5rem;
+    font-size: 2.55rem;
   }
-  .comentarios__card:hover {
-    transform: translateY(-4px);
+
+  .comentarios__grid {
+    gap: 12px;
   }
+
+  .comentarios__card,
+  .comentarios__card:last-child {
+    min-height: 275px;
+    padding: 28px 23px 24px;
+    border-radius: 1.05rem;
+  }
+
+  .comentarios__card::before {
+    left: 23px;
+    width: 38px;
+  }
+
+  .comentarios__card:hover::before {
+    width: 62px;
+  }
+
+  .comentarios__card::after {
+    top: 13px;
+    right: 17px;
+    font-size: 4.5rem;
+  }
+
+  .comentarios__estrelas {
+    margin-bottom: 20px;
+  }
+
   .comentarios__texto {
-    font-size: 1.2rem;
+    font-size: 1.19rem;
+    line-height: 1.55;
+  }
+
+  .comentarios__divisor {
+    margin: 22px 0 16px;
+  }
+
+  .comentarios__nome {
+    font-size: 0.61rem;
+  }
+
+  .comentarios__info {
+    font-size: 0.54rem;
+  }
+
+  .comentarios__card-indice {
+    right: 21px;
+    bottom: 23px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comentarios__card,
+  .comentarios__card::before {
+    transition: none;
   }
 }
