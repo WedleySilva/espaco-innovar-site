@@ -52,9 +52,16 @@ function MenuLateral({
       >
         <div className="menu-lateral__topo">
           <div className="menu-lateral__marca">
-            <span>ESPAÇO</span>
+            <span>CLÍNICA</span>
             <span>INNOVAR</span>
-            <small>ESTÉTICA AVANÇADA</small>
+
+            <div className="menu-lateral__subtitulo">
+              <span />
+              <div>
+                <small>HARMONIZAÇÃO FACIAL</small>
+                <small>ESTÉTICA AVANÇADA</small>
+              </div>
+            </div>
           </div>
 
           <button
@@ -75,22 +82,27 @@ function MenuLateral({
 
         <nav className="menu-lateral__navegacao">
           <a href="#inicio" onClick={onFechar}>
+            <span>01</span>
             INÍCIO
           </a>
 
           <a href="#tratamentos" onClick={onFechar}>
+            <span>02</span>
             TRATAMENTOS
           </a>
 
           <a href="#clinica" onClick={onFechar}>
+            <span>03</span>
             A CLÍNICA
           </a>
 
           <a href="#resultados" onClick={onFechar}>
+            <span>04</span>
             RESULTADOS
           </a>
 
           <a href="#contato" onClick={onFechar}>
+            <span>05</span>
             CONTATO
           </a>
         </nav>
@@ -103,7 +115,8 @@ function MenuLateral({
             onAgendar()
           }}
         >
-          AGENDAR AVALIAÇÃO
+          <span>AGENDAR AVALIAÇÃO</span>
+          <i>↗</i>
         </button>
       </aside>
     </>
