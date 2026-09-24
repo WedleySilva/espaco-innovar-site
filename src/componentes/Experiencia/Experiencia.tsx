@@ -1,83 +1,238 @@
+import { motion } from 'framer-motion'
 import './Experiencia.css'
 
-type Diferencial = {
-  numero: string
-  titulo: string
-  descricao: string
+const revealHeader = {
+  hidden: {
+    opacity: 0,
+    y: 28,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 }
 
-const diferenciais: Diferencial[] = [
+const revealLeft = {
+  hidden: {
+    opacity: 0,
+    x: -35,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
+
+const revealRight = {
+  hidden: {
+    opacity: 0,
+    x: 35,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
+
+const cards = [
   {
     numero: '01',
-    titulo: 'Atendimento personalizado',
-    descricao: 'Cada plano começa em uma escuta atenta sobre você.',
+    lado: 'esquerda',
+    label: 'ACOLHIMENTO',
+    titulo: 'Um cuidado que começa antes do tratamento',
+    descricao:
+      'A experiência na Espaço Innovar começa no primeiro contato. Cada pessoa é recebida com atenção, escuta e respeito, criando um ambiente confortável para conversar sobre suas necessidades e expectativas.',
+    detalhe: 'Escuta individual · Ambiente tranquilo',
   },
   {
     numero: '02',
-    titulo: 'Tecnologia',
-    descricao: 'Equipamentos modernos para resultados seguros e consistentes.',
+    lado: 'direita',
+    label: 'PERSONALIZAÇÃO',
+    titulo: 'Cada pessoa possui uma história',
+    descricao:
+      'Nenhum tratamento é pensado de forma genérica. Avaliamos características, objetivos e particularidades para construir uma abordagem que faça sentido para você.',
+    detalhe: 'Avaliação cuidadosa · Plano individual',
   },
   {
     numero: '03',
-    titulo: 'Profissionais qualificados',
-    descricao: 'Equipe especializada em estética avançada.',
+    lado: 'esquerda',
+    label: 'PRECISÃO',
+    titulo: 'Técnica aliada à delicadeza',
+    descricao:
+      'Conhecimento e precisão caminham juntos em cada procedimento. O cuidado está tanto na escolha das técnicas quanto na atenção aos pequenos detalhes durante todo o processo.',
+    detalhe: 'Técnica · Segurança · Naturalidade',
   },
   {
     numero: '04',
-    titulo: 'Ambiente acolhedor',
-    descricao: 'Serenidade e privacidade em cada atendimento.',
+    lado: 'direita',
+    label: 'TECNOLOGIA',
+    titulo: 'Recursos que acompanham a evolução',
+    descricao:
+      'Tecnologia e conhecimento são utilizados de maneira consciente para ampliar possibilidades de tratamento e proporcionar uma experiência cada vez mais completa.',
+    detalhe: 'Recursos modernos · Aplicação responsável',
   },
   {
     numero: '05',
-    titulo: 'Estética avançada',
-    descricao: 'Protocolos faciais, corporais e combinados.',
+    lado: 'esquerda',
+    label: 'CONFORTO',
+    titulo: 'Um espaço pensado para desacelerar',
+    descricao:
+      'Do ambiente aos detalhes, tudo foi planejado para transmitir tranquilidade. Um espaço onde o cuidado também acontece através da sensação de estar bem.',
+    detalhe: 'Atmosfera acolhedora · Privacidade',
   },
   {
     numero: '06',
-    titulo: 'Cuidado individualizado',
-    descricao: 'Acompanhamento próximo em toda a jornada.',
+    lado: 'direita',
+    label: 'RESULTADO',
+    titulo: 'Beleza que respeita sua individualidade',
+    descricao:
+      'O objetivo é valorizar aquilo que já existe em você, buscando resultados equilibrados e coerentes com suas características, sem perder sua identidade.',
+    detalhe: 'Equilíbrio · Harmonia · Autenticidade',
   },
 ]
 
 function Experiencia() {
   return (
     <section className="experiencia">
-      <div className="experiencia__fundo"></div>
+      <div className="experiencia__borda experiencia__borda--top" />
+
+      <div className="experiencia__fundo" />
 
       <div className="container experiencia__container">
-        <div className="experiencia__cabecalho">
-          <span className="experiencia__eyebrow">
-            <i></i>
+        <motion.header
+          className="experiencia__cabecalho"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.18 }}
+        >
+          <motion.div className="experiencia__eyebrow" variants={revealHeader}>
+            <i />
             A EXPERIÊNCIA INNOVAR
-          </span>
+          </motion.div>
 
-          <h2 className="experiencia__titulo">
-            Detalhes que fazem a{' '}
-            <em>diferença</em>
-          </h2>
-        </div>
-
-        <div className="experiencia__grid">
-          {diferenciais.map((diferencial) => (
-            <article
-              key={diferencial.numero}
-              className="experiencia__card"
+          <div className="experiencia__titulo-area">
+            <motion.h2
+              className="experiencia__titulo"
+              variants={revealHeader}
             >
-              <span className="experiencia__numero">
-                {diferencial.numero}
-              </span>
+              Mais do que um tratamento,
+              <em> uma experiência.</em>
+            </motion.h2>
 
-              <h3 className="experiencia__card-titulo">
-                {diferencial.titulo}
-              </h3>
+            <motion.div className="experiencia__indice" variants={revealHeader}>
+              <span>06</span>
+              <small>
+                momentos
+                <br />
+                de cuidado
+              </small>
+            </motion.div>
+          </div>
 
-              <p className="experiencia__card-descricao">
-                {diferencial.descricao}
-              </p>
-            </article>
-          ))}
+          <motion.div
+            className="experiencia__introducao"
+            variants={revealHeader}
+          >
+            <span className="experiencia__introducao-linha" />
+
+            <p>
+              Cada etapa foi pensada para transformar o cuidado em um momento
+              de conexão, tranquilidade e confiança. Da chegada ao resultado,
+              buscamos fazer com que você se sinta verdadeiramente acolhido.
+            </p>
+          </motion.div>
+        </motion.header>
+
+        <div className="experiencia__estrutura">
+          <div className="experiencia__linha-central">
+            <span className="experiencia__linha-brilho" />
+          </div>
+
+          <div className="experiencia__grid">
+            {cards.map((card, index) => (
+              <motion.article
+                key={card.numero}
+                className={`experiencia__item experiencia__item--${card.lado}`}
+                variants={card.lado === 'esquerda' ? revealLeft : revealRight}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{
+                  delay: index * 0.05,
+                }}
+              >
+                <div className="experiencia__item-conteudo">
+                  <span className="experiencia__numero">
+                    {card.numero}
+                  </span>
+
+                  <div className="experiencia__card">
+                    <div className="experiencia__card-topo">
+                      <span className="experiencia__card-indicador" />
+                      <span className="experiencia__card-label">
+                        {card.label}
+                      </span>
+                    </div>
+
+                    <h3 className="experiencia__card-titulo">
+                      {card.titulo}
+                    </h3>
+
+                    <p className="experiencia__card-descricao">
+                      {card.descricao}
+                    </p>
+
+                    <div className="experiencia__card-detalhe">
+                      <span className="experiencia__card-detalhe-linha" />
+                      <span>{card.detalhe}</span>
+                    </div>
+
+                    <span className="experiencia__card-numero">
+                      {card.numero}
+                    </span>
+                  </div>
+                </div>
+
+                <span className="experiencia__ponto" />
+              </motion.article>
+            ))}
+          </div>
         </div>
+
+        <motion.div
+          className="experiencia__fechamento"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.75,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          <span className="experiencia__fechamento-linha" />
+
+          <p>
+            Porque cuidar de você também pode ser
+            <em> uma experiência para guardar.</em>
+          </p>
+
+          <span className="experiencia__fechamento-linha" />
+        </motion.div>
       </div>
+
+      <div className="experiencia__borda experiencia__borda--bottom" />
     </section>
   )
 }
