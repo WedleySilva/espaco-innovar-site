@@ -257,6 +257,10 @@
   outline-offset: 3px;
 }
 
+.icon-arrow-right {
+  font-variant-emoji: text;
+}
+
 @media (max-width: 600px) {
   .menu-lateral {
     width: min(340px, 90vw);

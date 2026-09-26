@@ -283,6 +283,7 @@
   font-size: 0.85rem;
   line-height: 1;
   transition: transform 0.35s ease;
+  font-variant-emoji: text;
 }
 
 .resultados__acao:hover .resultados__acao-icone {
