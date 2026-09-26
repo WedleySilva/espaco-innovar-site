@@ -50,6 +50,7 @@
 
 html {
   scroll-behavior: smooth;
+  content: "\2197\FE0E";
 }
 
 body {
