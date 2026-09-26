@@ -116,7 +116,6 @@ function Chamada() {
             <span className="chamada__botao-texto">
               AGENDAR PELO WHATSAPP
             </span>
-
             <span className="chamada__botao-icone">
               {"↗\uFE0E"}
             </span>
@@ -137,7 +136,9 @@ function Chamada() {
             }}
           >
             <span>VER CONTATOS</span>
-            <span className="chamada__botao-icone">{"↗\uFE0E"}</span>
+            <span className="chamada__botao-icone">
+              {"↗\uFE0E"}
+            </span>
           </motion.a>
         </motion.div>
       </motion.div>
@@ -146,3 +147,4 @@ function Chamada() {
 }
 
 export default Chamada
+

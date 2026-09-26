@@ -33,6 +33,7 @@
 }
 
 .chamada::before {
+  content: '';
   position: absolute;
   inset: 0;
   z-index: -2;
@@ -47,6 +48,7 @@
 }
 
 .chamada::after {
+  content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -204,7 +206,8 @@
 }
 
 .chamada__titulo em::after {
-  content: "\2197\FE0E";
+  content: '';
+  position: absolute;
   left: 5%;
   right: 5%;
   bottom: -4px;
@@ -266,7 +269,7 @@
 }
 
 .chamada__botao::before {
-  content: "\2197\FE0E";
+  content: '';
   position: absolute;
   top: 0;
   left: -120%;
@@ -338,7 +341,6 @@
   transition:
     transform 0.35s ease,
     color 0.35s ease;
-  content: "\2197\FE0E";
 }
 
 .chamada__botao:hover .chamada__botao-icone {
@@ -488,3 +490,4 @@
     letter-spacing: 0.15em;
   }
 }
+
