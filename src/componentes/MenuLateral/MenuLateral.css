@@ -259,6 +259,7 @@
 
 .icon-arrow-right {
   font-variant-emoji: text;
+  content: "\2197\FE0E";
 }
 
 @media (max-width: 600px) {

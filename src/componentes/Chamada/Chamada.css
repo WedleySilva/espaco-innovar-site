@@ -340,6 +340,7 @@
   transition:
     transform 0.35s ease,
     color 0.35s ease;
+  content: "\2197\FE0E";
 }
 
 .chamada__botao:hover .chamada__botao-icone {
