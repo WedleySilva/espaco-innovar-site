@@ -206,7 +206,7 @@
 }
 
 .chamada__titulo em::after {
-  content: "\2197\FE0E";e;
+  content: "\2197\FE0E";
   left: 5%;
   right: 5%;
   bottom: -4px;
