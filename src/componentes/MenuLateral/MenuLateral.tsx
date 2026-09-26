@@ -116,7 +116,7 @@ function MenuLateral({
           }}
         >
           <span>AGENDAR AVALIAÇÃO</span>
-          <i className="icon-arrow-right">↗</i>
+          <i className="icon-arrow-right">{"↗\uFE0E"}</i>
         </button>
       </aside>
     </>
