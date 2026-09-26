@@ -22,7 +22,7 @@ export const tratamentos: Tratamento[] = [
     descricao:
       'Protocolos personalizados para rejuvenescimento, hidratação, harmonia e renovação da pele.',
     imagem:
-      'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=85',
+      'https://res.cloudinary.com/drasiz1tf/image/upload/v1790445075/espa%C3%A7o-innovar/tratamentos/massagem-rosto.webp',
     procedimentos: [
       {
         nome: 'Toxina botulínica (Botox)',
@@ -92,7 +92,7 @@ export const tratamentos: Tratamento[] = [
     descricao:
       'Tratamentos voltados ao bem-estar, contorno corporal, circulação, celulite e cuidados com a pele.',
     imagem:
-      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1000&q=85',
+      'https://res.cloudinary.com/drasiz1tf/image/upload/v1790443556/espa%C3%A7o-innovar/tratamentos/massagem-modeladora.jpg',
     procedimentos: [
       {
         nome: 'Subcisão de celulites',
@@ -142,7 +142,7 @@ export const tratamentos: Tratamento[] = [
     descricao:
       'Protocolos individualizados definidos conforme avaliação e objetivos de cada paciente.',
     imagem:
-      'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85',
+      'https://res.cloudinary.com/drasiz1tf/image/upload/v1790445919/espa%C3%A7o-innovar/tratamentos/suplementa%C3%A7%C3%A3o.jpg',
     procedimentos: [
       {
         nome: 'Acelerador metabólico',
@@ -217,10 +217,10 @@ export const tratamentos: Tratamento[] = [
     descricao:
       'Tecnologias e procedimentos especializados para complementar protocolos de cuidado e estética.',
     imagem:
-      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85',
+      'https://res.cloudinary.com/drasiz1tf/image/upload/v1790444422/espa%C3%A7o-innovar/tratamentos/depilacao-laser.jpg',
     procedimentos: [
       {
-        nome: 'Remoção de verrugas com jato de plasma',
+        nome: ' a',
         descricao:
           'Procedimento minimamente invasivo que utiliza jato de plasma. A lesão deve ser avaliada previamente para confirmar sua compatibilidade.',
       },

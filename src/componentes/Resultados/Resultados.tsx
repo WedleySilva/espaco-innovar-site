@@ -13,7 +13,7 @@ type Resultado = {
 const resultados: Resultado[] = [
   {
     imagem:
-      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1400&q=85",
+      "https://res.cloudinary.com/drasiz1tf/image/upload/v1790441539/espa%C3%A7o-innovar/tratamentos/cuidado-facial.jpg",
     categoria: "FACIAL",
     titulo: "Cuidados faciais",
     descricao:
@@ -31,7 +31,7 @@ const resultados: Resultado[] = [
   },
   {
     imagem:
-      "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=1100&q=85",
+      "https://res.cloudinary.com/drasiz1tf/image/upload/v1790441911/espa%C3%A7o-innovar/tratamentos/tratamento-corporal.webp",
     categoria: "CORPORAL",
     titulo: "Protocolos corporais",
     descricao:
@@ -47,7 +47,7 @@ const resultados: Resultado[] = [
   },
   {
     imagem:
-      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1100&q=85",
+      "https://res.cloudinary.com/drasiz1tf/image/upload/v1790442333/espa%C3%A7o-innovar/tratamentos/massagem-pedras-quentes.webp",
     categoria: "BEM-ESTAR",
     titulo: "Massoterapia",
     descricao:
@@ -62,7 +62,7 @@ const resultados: Resultado[] = [
   },
   {
     imagem:
-      "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1100&q=85",
+      "https://res.cloudinary.com/drasiz1tf/image/upload/v1790443238/espa%C3%A7o-innovar/tratamentos/aplica%C3%A7%C3%A3o-enzimas.jpg",
     categoria: "SUPLEMENTAÇÕES",
     titulo: "Suplementações injetáveis",
     descricao:
@@ -80,7 +80,7 @@ const resultados: Resultado[] = [
   },
   {
     imagem:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=85",
+      "https://res.cloudinary.com/drasiz1tf/image/upload/v1790443383/espa%C3%A7o-innovar/tratamentos/laser-diodo.webp",
     categoria: "ESTÉTICA AVANÇADA",
     titulo: "Tecnologia e procedimentos",
     descricao:

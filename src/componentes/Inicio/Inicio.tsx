@@ -119,7 +119,7 @@ function Inicio() {
 
           <div className="inicio__imagem-wrapper">
             <img
-              src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=90"
+              src="https://res.cloudinary.com/drasiz1tf/image/upload/v1790440975/espa%C3%A7o-innovar/tratamentos/mascara-facial.jpg"
               alt="Tratamento de estética facial"
               className="inicio__imagem"
             />
