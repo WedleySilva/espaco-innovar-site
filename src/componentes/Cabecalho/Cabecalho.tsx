@@ -227,7 +227,7 @@ useEffect(() => {
             }}
           >
             <span>AGENDAR AVALIAÇÃO</span>
-            <i>↗</i>
+            <i>{"↗\uFE0E"}</i>
           </motion.button>
 
           <motion.button

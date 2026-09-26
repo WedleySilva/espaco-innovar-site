@@ -225,7 +225,7 @@
 
 .rodape__navegacao a::before,
 .rodape__contato a::before {
-  content: '↗';
+  content: "\2197\FE0E";
   position: absolute;
   left: -18px;
   top: 50%;

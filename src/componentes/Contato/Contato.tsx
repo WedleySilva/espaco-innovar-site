@@ -125,7 +125,7 @@ function Contato() {
               </div>
 
               <span className="contato__seta">
-                ↗
+                {"↗\uFE0E"}
               </span>
             </motion.button>
 
@@ -156,7 +156,7 @@ function Contato() {
               </div>
 
               <span className="contato__seta">
-                ↗
+                {"↗\uFE0E"}
               </span>
             </motion.a>
 
@@ -187,7 +187,7 @@ function Contato() {
               </div>
 
               <span className="contato__seta">
-                ↗
+                {"↗\uFE0E"}
               </span>
             </motion.a>
           </motion.div>
@@ -256,7 +256,7 @@ function Contato() {
               </span>
 
               <span className="contato__botao-icone">
-                ↗
+                {"↗\uFE0E"}
               </span>
             </motion.button>
           </motion.div>

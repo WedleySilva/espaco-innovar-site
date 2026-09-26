@@ -237,7 +237,7 @@ function Resultados() {
                       onClick={irParaContato}
                     >
                       <span>Agendar avaliação</span>
-                      <span className="resultados__acao-icone">↗</span>
+                      <span className="resultados__acao-icone">{"↗\uFE0E"}</span>
                     </button>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ function Resultados() {
                       {resultado.procedimentos.length} procedimentos
                     </span>
 
-                    <span className="resultados__opcao-seta">↗</span>
+                    <span className="resultados__opcao-seta">{"↗\uFE0E"}</span>
                   </div>
                 </motion.button>
               );
@@ -300,7 +300,7 @@ function Resultados() {
                 <strong>Fale com a nossa equipe.</strong>
               </span>
 
-              <span className="resultados__contato-seta">↗</span>
+              <span className="resultados__contato-seta">{"↗\uFE0E"}</span>
             </motion.button>
           </motion.div>
         </motion.div>
