@@ -92,7 +92,7 @@ function Inicio() {
             transition={{ duration: 0.8, delay: 0.9 }}
           >
             <div className="inicio__indicador">
-              <strong>+8</strong>
+              <strong>+10</strong>
               <span>ANOS DE CUIDADO</span>
             </div>
 
