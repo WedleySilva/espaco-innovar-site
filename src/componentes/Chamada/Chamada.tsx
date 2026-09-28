@@ -79,9 +79,9 @@ function Chamada() {
           className="chamada__titulo"
           variants={revealTitle}
         >
-          <span>Sua próxima versão</span>
+          <span>Faça dos seus sonhos</span>
           <span>
-            começa <em>agora</em>
+            um <em>objetivo</em>
           </span>
         </motion.h2>
 
