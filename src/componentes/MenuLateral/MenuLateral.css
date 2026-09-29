@@ -48,50 +48,40 @@
 }
 
 .menu-lateral__marca {
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .menu-lateral__marca > span {
+  display: block;
   color: #d9bd82;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 30px;
+  font-size: 22px;
   font-weight: 400;
-  line-height: 0.94;
-  letter-spacing: 4px;
-}
-
-.menu-lateral__marca > span + span {
-  margin-top: 2px;
+  line-height: 1;
+  letter-spacing: 3px;
+  white-space: nowrap;
 }
 
 .menu-lateral__subtitulo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.menu-lateral__subtitulo > span {
-  width: 38px;
-  height: 1px;
-  flex-shrink: 0;
-  background: #d9bd82;
-}
-
-.menu-lateral__subtitulo div {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  justify-content: flex-start;
+  gap: 7px;
+  margin-top: 11px;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .menu-lateral__subtitulo small {
-  color: #55babb;
+  color: #d9bd82;
   font-family: 'Jost', sans-serif;
-  font-size: 6px;
+  font-size: 6.5px;
   font-weight: 400;
-  letter-spacing: 1.5px;
-  line-height: 1.15;
+  letter-spacing: 1.35px;
+  line-height: 1;
   white-space: nowrap;
 }
 
@@ -128,7 +118,7 @@
   width: 22px;
   height: 22px;
   fill: none;
-  stroke: #12aaa9;
+  stroke: #d9bd82;
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -268,18 +258,23 @@
     padding: 28px 24px 24px;
   }
 
+  .menu-lateral__topo {
+    gap: 14px;
+  }
+
   .menu-lateral__marca > span {
-    font-size: 26px;
-    letter-spacing: 3.5px;
+    font-size: 20px;
+    letter-spacing: 2.5px;
   }
 
   .menu-lateral__subtitulo {
+    gap: 6px;
     margin-top: 9px;
   }
 
   .menu-lateral__subtitulo small {
-    font-size: 5.5px;
-    letter-spacing: 1.3px;
+    font-size: 5.4px;
+    letter-spacing: 1px;
   }
 
   .menu-lateral__navegacao {
@@ -300,11 +295,17 @@
   }
 
   .menu-lateral__marca > span {
-    font-size: 24px;
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+
+  .menu-lateral__subtitulo {
+    gap: 5px;
   }
 
   .menu-lateral__subtitulo small {
-    font-size: 5px;
+    font-size: 4.8px;
+    letter-spacing: 0.8px;
   }
 }
 
@@ -327,3 +328,4 @@
     transition: none;
   }
 }
+

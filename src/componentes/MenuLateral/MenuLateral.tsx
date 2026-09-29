@@ -52,15 +52,12 @@ function MenuLateral({
       >
         <div className="menu-lateral__topo">
           <div className="menu-lateral__marca">
-            <span>CLÍNICA</span>
-            <span>INNOVAR</span>
+            <span>CLÍNICA INNOVAR</span>
 
             <div className="menu-lateral__subtitulo">
-              <span />
-              <div>
-                <small>HARMONIZAÇÃO FACIAL</small>
-                <small>ESTÉTICA AVANÇADA</small>
-              </div>
+              <small>HARMONIZAÇÃO FACIAL</small>
+              <small>{'\u2022\uFE0E'}</small>
+              <small>ESTÉTICA AVANÇADA</small>
             </div>
           </div>
 
@@ -124,3 +121,4 @@ function MenuLateral({
 }
 
 export default MenuLateral
+
