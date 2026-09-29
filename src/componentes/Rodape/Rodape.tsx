@@ -84,23 +84,20 @@ function Rodape() {
               />
 
               <div className="rodape__logo-texto">
-                <span>CLÍNICA</span>
-                <span>INNOVAR</span>
+                <span>CLÍNICA INNOVAR</span>
 
                 <div className="rodape__logo-subtitulo">
-                  <span />
-                  <div>
-                    <small>HARMONIZAÇÃO FACIAL</small>
-                    <small>ESTÉTICA AVANÇADA</small>
-                  </div>
+                  <small>HARMONIZAÇÃO FACIAL</small>
+                  <small>{'\u2022\uFE0E'}</small>
+                  <small>ESTÉTICA AVANÇADA</small>
                 </div>
               </div>
             </motion.a>
 
             <p className="rodape__descricao">
-              Cuidado individualizado e
-              tratamentos pensados para valorizar a beleza de
-              cada pessoa em Garuva — SC.
+              Cuidado individualizado e tratamentos pensados
+              para valorizar a beleza de cada pessoa em
+              Garuva — SC.
             </p>
           </motion.div>
 
@@ -193,7 +190,9 @@ function Rodape() {
               >
                 WEDLEY S. SCHMOELLER
               </a>
+
               {' - '}
+
               <a
                 href="https://www.linkedin.com/in/wedley-silva-schmoeller-809104247"
                 target="_blank"
@@ -210,3 +209,4 @@ function Rodape() {
 }
 
 export default Rodape
+
