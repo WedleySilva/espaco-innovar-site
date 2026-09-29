@@ -125,7 +125,7 @@ function Avaliacao() {
             </span>
 
             <span className="avaliacao__botao-seta">
-              →
+            {'\u2192\uFE0E'}
             </span>
           </motion.button>
         </motion.div>

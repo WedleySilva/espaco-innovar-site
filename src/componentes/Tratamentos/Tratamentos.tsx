@@ -465,7 +465,7 @@ function Tratamentos() {
                   onClick={() => navegar('direita')}
                   aria-label="Próximo"
                 >
-                  →
+                  {'\u2192\uFE0E'}
                 </button>
               </motion.div>
             )}
@@ -535,7 +535,7 @@ function Tratamentos() {
 
                       <span className="tratamentos__ver">
                         VER TODOS
-                        <b>→</b>
+                        <b>{'\u2192\uFE0E'}</b>
                       </span>
                     </div>
                   </div>

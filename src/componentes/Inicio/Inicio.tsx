@@ -72,7 +72,7 @@ function Inicio() {
               onClick={agendarAvaliacao}
             >
               AGENDAR AVALIAÇÃO
-              <span>→</span>
+              <span>{'\u2192\uFE0E'}</span>
             </button>
 
             <a
@@ -80,7 +80,7 @@ function Inicio() {
               className="inicio__botao inicio__botao--secundario"
             >
               VER TRATAMENTOS
-              <span>→</span>
+              <span>{'\u2192\uFE0E'}</span>
             </a>
           </motion.div>
 

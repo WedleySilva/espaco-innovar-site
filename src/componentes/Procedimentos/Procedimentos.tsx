@@ -348,7 +348,7 @@ function Procedimentos() {
                             }}
                           >
                             VER NOS TRATAMENTOS
-                            <b>→</b>
+                            <b>{'\u2192\uFE0E'}</b>
                           </button>
                         </motion.article>
                       ))}
