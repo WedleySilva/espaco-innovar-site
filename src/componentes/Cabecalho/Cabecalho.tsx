@@ -18,33 +18,33 @@ function Cabecalho() {
   const [cabecalhoOculto, setCabecalhoOculto] = useState(false)
   const [menuAberto, setMenuAberto] = useState(false)
 
-useEffect(() => {
-  let ultimaPosicao = window.scrollY
+  useEffect(() => {
+    let ultimaPosicao = window.scrollY
 
-  const handleScroll = () => {
-    const posicaoAtual = window.scrollY
+    const handleScroll = () => {
+      const posicaoAtual = window.scrollY
 
-    setRolando(posicaoAtual > 20)
+      setRolando(posicaoAtual > 20)
 
-    if (posicaoAtual <= 20) {
-      setCabecalhoOculto(false)
-    } else if (posicaoAtual > ultimaPosicao) {
-      setCabecalhoOculto(true)
-    } else if (posicaoAtual < ultimaPosicao) {
-      setCabecalhoOculto(false)
+      if (posicaoAtual <= 20) {
+        setCabecalhoOculto(false)
+      } else if (posicaoAtual > ultimaPosicao) {
+        setCabecalhoOculto(true)
+      } else if (posicaoAtual < ultimaPosicao) {
+        setCabecalhoOculto(false)
+      }
+
+      ultimaPosicao = posicaoAtual
     }
 
-    ultimaPosicao = posicaoAtual
-  }
+    handleScroll()
 
-  handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
-  window.addEventListener('scroll', handleScroll, { passive: true })
-
-  return () => {
-    window.removeEventListener('scroll', handleScroll)
-  }
-}, [])
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -149,15 +149,12 @@ useEffect(() => {
             />
 
             <div className="cabecalho__logo-texto">
-              <span>CLÍNICA</span>
-              <span>INNOVAR</span>
+              <span>CLÍNICA INNOVAR</span>
 
               <div className="cabecalho__logo-subtitulo">
-                <span />
-                <div>
-                  <small>HARMONIZAÇÃO FACIAL</small>
-                  <small>ESTÉTICA AVANÇADA</small>
-                </div>
+                <small>HARMONIZAÇÃO FACIAL</small>
+                <small>{'\u2022\uFE0E'}</small>
+                <small>ESTÉTICA AVANÇADA</small>
               </div>
             </div>
           </motion.a>
@@ -272,3 +269,4 @@ useEffect(() => {
 }
 
 export default Cabecalho
+
