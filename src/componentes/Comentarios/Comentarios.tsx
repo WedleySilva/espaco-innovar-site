@@ -204,7 +204,7 @@ function Comentarios() {
                   </span>
 
                   <span className="comentarios__info">
-                    {comentario.identificacao} • {comentario.tempo}
+                    {comentario.identificacao}{'\u2022\uFE0E'}{comentario.tempo}
                   </span>
                 </div>
 
