@@ -352,39 +352,157 @@
 
 @media (max-width: 1200px) {
   .cabecalho__container {
-    width: 85%;
+    width: 88%;
   }
 
   .cabecalho__navegacao {
-    gap: 18px;
-    margin-right: 20px;
+    gap: 16px;
+    margin-right: 16px;
   }
 
   .cabecalho__navegacao a {
-    font-size: 9px;
-    letter-spacing: 1.2px;
-  }
-
-  .cabecalho__botao {
-    height: 40px;
-    padding: 0 16px 0 17px;
-    font-size: 9px;
+    font-size: 8.5px;
     letter-spacing: 1px;
   }
 
+  .cabecalho__botao {
+    height: 39px;
+    padding: 0 14px 0 16px;
+    gap: 7px;
+    font-size: 8.5px;
+    letter-spacing: 0.9px;
+  }
+
+  .cabecalho__botao i {
+    font-size: 0.9rem;
+  }
+
+  .cabecalho__logo {
+    gap: 12px;
+  }
+
   .cabecalho__logo-icone {
-    width: 62px;
-    height: 62px;
+    width: 60px;
+    height: 60px;
   }
 
   .cabecalho__logo-texto > span {
-    font-size: 26px;
-    letter-spacing: 2.7px;
+    font-size: 24px;
+    letter-spacing: 2.3px;
+  }
+
+  .cabecalho__logo-subtitulo {
+    margin-top: 8px;
+    gap: 5px;
   }
 
   .cabecalho__logo-subtitulo small {
-    font-size: 5.5px;
-    letter-spacing: 1.2px;
+    font-size: 5px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .cabecalho__container {
+    width: 90%;
+  }
+
+  .cabecalho__logo {
+    gap: 9px;
+  }
+
+  .cabecalho__logo-icone {
+    width: 54px;
+    height: 54px;
+  }
+
+  .cabecalho__logo-texto > span {
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+
+  .cabecalho__logo-subtitulo {
+    margin-top: 7px;
+    gap: 4px;
+  }
+
+  .cabecalho__logo-subtitulo small {
+    font-size: 4.7px;
+    letter-spacing: 0.8px;
+  }
+
+  .cabecalho__navegacao {
+    gap: 13px;
+    margin-right: 12px;
+  }
+
+  .cabecalho__navegacao a {
+    font-size: 8px;
+    letter-spacing: 0.8px;
+  }
+
+  .cabecalho__botao {
+    height: 37px;
+    padding: 0 12px 0 14px;
+    gap: 6px;
+    font-size: 8px;
+    letter-spacing: 0.7px;
+  }
+
+  .cabecalho__botao i {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .cabecalho__container {
+    width: 92%;
+  }
+
+  .cabecalho__logo {
+    gap: 7px;
+  }
+
+  .cabecalho__logo-icone {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cabecalho__logo-texto > span {
+    font-size: 20px;
+    letter-spacing: 1.7px;
+  }
+
+  .cabecalho__logo-subtitulo {
+    margin-top: 6px;
+    gap: 3px;
+  }
+
+  .cabecalho__logo-subtitulo small {
+    font-size: 4.4px;
+    letter-spacing: 0.65px;
+  }
+
+  .cabecalho__navegacao {
+    gap: 10px;
+    margin-right: 10px;
+  }
+
+  .cabecalho__navegacao a {
+    font-size: 7.5px;
+    letter-spacing: 0.65px;
+  }
+
+  .cabecalho__botao {
+    height: 35px;
+    padding: 0 10px 0 12px;
+    gap: 5px;
+    font-size: 7.5px;
+    letter-spacing: 0.6px;
+  }
+
+  .cabecalho__botao i {
+    font-size: 0.8rem;
   }
 }
 
@@ -520,4 +638,3 @@
     transition: none;
   }
 }
-
