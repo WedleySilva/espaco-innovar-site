@@ -29,7 +29,7 @@
 }
 
 .cabecalho__container {
-  width: 76%;
+  width: 84%;
   max-width: 1200px;
   height: 100%;
   margin: 0 auto;
@@ -112,7 +112,7 @@
 .cabecalho__navegacao {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: clamp(18px, 2vw, 30px);
   margin-left: auto;
   margin-right: 30px;
   flex-shrink: 1;
@@ -329,6 +329,25 @@
 .cabecalho__menu:focus-visible {
   outline: 2px solid #d9bd82;
   outline-offset: 3px;
+}
+
+@media (max-width: 1450px) {
+  .cabecalho__navegacao {
+    gap: 22px;
+    margin-right: 20px;
+  }
+
+  .cabecalho__navegacao a {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .cabecalho__botao {
+    height: 42px;
+    padding: 0 17px 0 20px;
+    font-size: 9px;
+    letter-spacing: 1.2px;
+  }
 }
 
 @media (max-width: 1200px) {
